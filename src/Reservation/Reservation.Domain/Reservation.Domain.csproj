@@ -5,9 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="AggregatesModel\" />
     <Folder Include="IRepositories\" />
-    <Folder Include="Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>
