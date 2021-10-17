@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Reservation.Domain.AggregatesModel
+namespace Reservation.Infrastructure.Context
 {
-    public enum ResourceType
+    public class ReservationDbContextReadOnly
     {
-        Fixed,
-        Movable
     }
 }

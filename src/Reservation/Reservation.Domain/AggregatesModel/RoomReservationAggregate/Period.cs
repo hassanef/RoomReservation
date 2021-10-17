@@ -1,8 +1,7 @@
-﻿using Reservation.Domain.AggregatesModel.RoomAggregate;
-using Reservation.Domain.Exceptions;
+﻿using Reservation.Domain.Exceptions;
 using System;
 
-namespace Reservation.Domain.AggregatesModel.RoomReservationAggregate
+namespace Reservation.Domain.AggregatesModel
 {
     public record Period
     {

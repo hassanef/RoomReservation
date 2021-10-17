@@ -1,21 +1,16 @@
 ﻿using Reservation.Domain.Seedwork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Reservation.Domain.AggregatesModel.RoomAggregate
+namespace Reservation.Domain.AggregatesModel
 {
-    public class RoomResource: Entity
+    public record RoomResource 
     {
-        public int ResourceId { get; private set; }
-        public int Count { get; private set; }
+        public int Id { get; init; }
+        public int RoomId { get; init; }
+        public int ResourceId { get; init; }
 
-        public RoomResource(int resourceId, int count)
+        public RoomResource(int resourceId)
         {
             ResourceId = resourceId;
-            Count = count;
         }
     }
 }

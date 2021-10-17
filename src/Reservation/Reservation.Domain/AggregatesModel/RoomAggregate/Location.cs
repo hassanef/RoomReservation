@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Reservation.Domain.AggregatesModel.RoomAggregate
+namespace Reservation.Domain.AggregatesModel
 {
     public enum Location
     {

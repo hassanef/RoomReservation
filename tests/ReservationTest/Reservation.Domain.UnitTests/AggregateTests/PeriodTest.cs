@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
-using Reservation.Domain.AggregatesModel.RoomAggregate;
-using Reservation.Domain.AggregatesModel.RoomReservationAggregate;
+using Reservation.Domain.AggregatesModel;
 using Reservation.Domain.Exceptions;
 using System;
 using Xunit;
