@@ -10,6 +10,7 @@
 * Repository
 * ApiGateway(ocelot framework)
 * Asp.Net Identity
+* Fluent Validation
 * Sql Server
 * Docker Compose
 
