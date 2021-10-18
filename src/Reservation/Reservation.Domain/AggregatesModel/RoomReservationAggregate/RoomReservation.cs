@@ -22,5 +22,9 @@ namespace Reservation.Domain.AggregatesModel
             Period = Period.Create(period.Start, period.End, location);
             _resourceReservations = new();
         }
+        public void AddResourceReservation(int resourceId)
+        {
+            _resourceReservations.Add(new ResourceReservation(resourceId));
+        }
     }
 }
