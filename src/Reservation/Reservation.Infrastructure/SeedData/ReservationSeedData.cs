@@ -1,18 +1,22 @@
 ﻿using DNTCommon.Web.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Reservation.Infrastructure.Context;
 using Reservation.Infrastructure.SeedData.Contract;
+using System.Linq;
 
 namespace Reservation.Infrastructure.SeedData
 {
-    public class ReservationSeedData:IReservationSeedData
+    public class ReservationSeedData : IReservationSeedData
     {
         private readonly IServiceScopeFactory _scopeFactory;
+        private readonly ILogger<ReservationSeedData> _logger;
 
-        public ReservationSeedData(IServiceScopeFactory scopeFactory)
+        public ReservationSeedData(IServiceScopeFactory scopeFactory, ILogger<ReservationSeedData> logger)
         {
             _scopeFactory = scopeFactory;
+            _logger = logger;
         }
         public void SeedData()
         {
@@ -20,6 +24,25 @@ namespace Reservation.Infrastructure.SeedData
             {
                 context.Database.Migrate();
             });
+
+            _scopeFactory.RunScopedService<ReservationDbContext>(context =>
+            {
+                if (!context.Rooms.Any())
+                {
+                    context.Rooms.AddRange(ReservationDefaultData.CreateRoomsPredefine());
+                    context.SaveChanges();
+
+                    _logger.LogInformation("Create rooms predefine in seed data.");
+                }
+                if (!context.Resources.Any())
+                {
+                    context.Resources.AddRange(ReservationDefaultData.CreateResourcesPredefine());
+                    context.SaveChanges();
+
+                    _logger.LogInformation("Create resources predefine in seed data.");
+                }
+            });
         }
+      
     }
 }
