@@ -13,7 +13,7 @@ namespace Reservation.Application.Validations
     public class RoomReservationInputValidator : AbstractValidator<RoomReservationCommand>
     {
         public RoomReservationInputValidator(IRoomReservationRepository roomReservationRepository,
-                                             IRoomRepository roomRepository)
+                                             IOfficeRepository roomRepository)
         {
              RuleFor(model => model.RoomId)
                 .NotEmpty()

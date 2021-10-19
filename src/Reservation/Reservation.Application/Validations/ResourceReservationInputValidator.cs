@@ -34,6 +34,15 @@ namespace Reservation.Application.Validations
 
                     return count == 1;
                 }).WithMessage("roomReservation not found!");
+
+            RuleFor(model => model)
+                   .NotEmpty()
+                   .MustAsync(async (model, cancellation) =>
+                   {
+                       var result = await roomReservationRepository.AnyAsync(x => x.ResourceReservations.Any(r => r.RoomReservationId == model.RoomReservationId && r.ResourceId == model.ResourceId));
+
+                       return !result;
+                   }).WithMessage("roomReservation has this resource!");
         }
     }
 }
