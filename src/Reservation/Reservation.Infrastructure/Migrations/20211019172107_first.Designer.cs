@@ -10,7 +10,7 @@ using Reservation.Infrastructure.Context;
 namespace Reservation.Infrastructure.Migrations
 {
     [DbContext(typeof(ReservationDbContext))]
-    [Migration("20211017184628_first")]
+    [Migration("20211019172107_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,9 +50,8 @@ namespace Reservation.Infrastructure.Migrations
                     b.Property<bool>("HasChair")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int>("OfficeId")
+                        .HasColumnType("int");
 
                     b.Property<byte>("PersonCapacity")
                         .HasColumnType("tinyint");
@@ -64,7 +63,30 @@ namespace Reservation.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OfficeId");
+
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("Reservation.Domain.AggregatesModel.RoomAggregate.Office", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Offices");
                 });
 
             modelBuilder.Entity("Reservation.Domain.AggregatesModel.RoomReservation", b =>
@@ -92,6 +114,12 @@ namespace Reservation.Infrastructure.Migrations
 
             modelBuilder.Entity("Reservation.Domain.AggregatesModel.Room", b =>
                 {
+                    b.HasOne("Reservation.Domain.AggregatesModel.RoomAggregate.Office", null)
+                        .WithMany("Rooms")
+                        .HasForeignKey("OfficeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.OwnsMany("Reservation.Domain.AggregatesModel.RoomResource", "RoomResources", b1 =>
                         {
                             b1.Property<int>("Id")
@@ -189,6 +217,11 @@ namespace Reservation.Infrastructure.Migrations
                     b.Navigation("Period");
 
                     b.Navigation("ResourceReservations");
+                });
+
+            modelBuilder.Entity("Reservation.Domain.AggregatesModel.RoomAggregate.Office", b =>
+                {
+                    b.Navigation("Rooms");
                 });
 #pragma warning restore 612, 618
         }

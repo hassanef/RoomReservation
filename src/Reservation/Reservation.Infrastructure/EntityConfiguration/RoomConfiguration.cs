@@ -30,12 +30,6 @@ namespace Reservation.Infrastructure.EntityConfiguration
                     .HasForeignKey(x => x.ResourceId);
             });
 
-            roomConfiguration.Property(e => e.Location)
-                      .HasConversion(
-                        v => v.ToString(),
-                        v => (Location)Enum.Parse(typeof(Location), v))
-                      .HasColumnType("nvarchar(20)");
-
         }
     }
 }

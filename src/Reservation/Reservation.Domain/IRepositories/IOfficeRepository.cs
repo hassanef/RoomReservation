@@ -2,7 +2,7 @@
 
 namespace Reservation.Domain.IRepositories
 {
-    public interface IRoomRepository : IRepository<Room>
+    public interface IOfficeRepository : IRepository<Room>
     {
     }
 }

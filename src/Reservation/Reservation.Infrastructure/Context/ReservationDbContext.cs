@@ -1,16 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Reservation.Domain.AggregatesModel;
 using Reservation.Infrastructure.EntityConfiguration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reservation.Infrastructure.Context
 {
     public class ReservationDbContext : DbContext
     {
+        public DbSet<Office> Offices { get; set; }
         public DbSet<Resource> Resources { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomResource> RoomResources { get; set; }
@@ -26,6 +22,7 @@ namespace Reservation.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new ResourceConfiguration());
             modelBuilder.ApplyConfiguration(new RoomConfiguration());
             modelBuilder.ApplyConfiguration(new RoomReservationConfiguration());
+            modelBuilder.ApplyConfiguration(new OfficeConfiguration());
         }
     }
 }

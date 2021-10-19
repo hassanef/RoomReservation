@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Reservation.Infrastructure.Repositories
 {
-    public class RoomRepository : Repository<Room>, IRoomRepository
+    public class OfficeRepository : Repository<Room>, IOfficeRepository
     {
-        public RoomRepository(ReservationDbContext dbContext, IHttpContextAccessor httpContextAccessor) : base(dbContext, httpContextAccessor)
+        public OfficeRepository(ReservationDbContext dbContext, IHttpContextAccessor httpContextAccessor) : base(dbContext, httpContextAccessor)
         {
         }
     }

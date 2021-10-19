@@ -8,6 +8,20 @@ namespace Reservation.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Offices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(100)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Offices", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Resources",
                 columns: table => new
                 {
@@ -27,14 +41,20 @@ namespace Reservation.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    OfficeId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     PersonCapacity = table.Column<byte>(type: "tinyint", nullable: false),
-                    HasChair = table.Column<bool>(type: "bit", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(20)", nullable: false)
+                    HasChair = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rooms", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rooms_Offices_OfficeId",
+                        column: x => x.OfficeId,
+                        principalTable: "Offices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -136,6 +156,11 @@ namespace Reservation.Infrastructure.Migrations
                 name: "IX_RoomResources_RoomId",
                 table: "RoomResources",
                 column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rooms_OfficeId",
+                table: "Rooms",
+                column: "OfficeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -154,6 +179,9 @@ namespace Reservation.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Rooms");
+
+            migrationBuilder.DropTable(
+                name: "Offices");
         }
     }
 }
