@@ -33,7 +33,7 @@ namespace Reservation.Application.CommandHandlers
 
             roomReservation.AddResourceReservation(request.ResourceId);
 
-            await _repository.CreateAsync(roomReservation);
+            await _repository.UpdateAsync(roomReservation);
 
             return true;
         }
