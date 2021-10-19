@@ -27,9 +27,9 @@ namespace Reservation.Infrastructure.SeedData
 
             _scopeFactory.RunScopedService<ReservationDbContext>(context =>
             {
-                if (!context.Rooms.Any())
+                if (!context.Offices.Any())
                 {
-                    context.Rooms.AddRange(ReservationDefaultData.CreateRoomsPredefine());
+                    context.Offices.AddRange(ReservationDefaultData.CreateRoomsPredefine());
                     context.SaveChanges();
 
                     _logger.LogInformation("Create rooms predefine in seed data.");

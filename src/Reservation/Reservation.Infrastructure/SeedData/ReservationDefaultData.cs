@@ -1,28 +1,27 @@
 ﻿using Reservation.Domain.AggregatesModel;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reservation.Infrastructure.SeedData
 {
     public static class ReservationDefaultData
     {
-        public static List<Room> CreateRoomsPredefine()
+        public static List<Office> CreateRoomsPredefine()
         {
-            var rooms = new List<Room>()
-            {
-                new Room("Room100", 8, false, Location.Amsterdam),
-                new Room("Room200", 15, true, Location.Amsterdam),
-                new Room("Room300", 30, true, Location.Amsterdam),
-                new Room("Room400", 11, true, Location.Amsterdam),
-                new Room("Room100", 18, true, Location.Berlin),
-                new Room("Room200", 7, false, Location.Amsterdam),
-                new Room("Room300", 13, true, Location.Amsterdam)
-            };
+            var offices = new List<Office>();
+            var amsterdamOffice = new Office("Amsterdam Office", Location.Amsterdam);
+            var berlinOffice = new Office("Berlin Office", Location.Berlin);
 
-            return rooms;
+            amsterdamOffice.AddOffice("Room100", 8, false);
+            amsterdamOffice.AddOffice("Room300", 15, true);
+            amsterdamOffice.AddOffice("Room400", 30, true);
+            amsterdamOffice.AddOffice("Room500", 11, true);
+            berlinOffice.AddOffice("Room200", 7, true);
+            berlinOffice.AddOffice("Room300", 13, false);
+
+            offices.Add(amsterdamOffice);
+            offices.Add(berlinOffice);
+
+            return offices;
         }
         public static List<Resource> CreateResourcesPredefine()
         {
