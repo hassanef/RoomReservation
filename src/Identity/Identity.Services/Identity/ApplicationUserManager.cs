@@ -33,7 +33,7 @@ namespace Identity.Services.Identity
 		private readonly IEnumerable<IPasswordValidator<User>> _passwordValidators;
 		private readonly IServiceProvider _services;
 		private readonly DbSet<User> _users;
-
+		private readonly IApplicationRoleManager _roleManager;
 		private readonly IApplicationUserStore _userStore;
 		private readonly IEnumerable<IUserValidator<User>> _userValidators;
 		private User _currentUserInScope;
@@ -50,7 +50,8 @@ namespace Identity.Services.Identity
 			ILogger<ApplicationUserManager> logger,
 			IHttpContextAccessor contextAccessor,
 			IUnitOfWork uow,
-			IUsedPasswordsService usedPasswordsService)
+			IUsedPasswordsService usedPasswordsService,
+			IApplicationRoleManager roleManager)
 			: base(
 				(UserStore<User, Role, ApplicationDbContext, int, UserClaim, UserRole, UserLogin, UserToken, RoleClaim>)store,
 				  optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
@@ -67,6 +68,7 @@ namespace Identity.Services.Identity
 			_contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(_contextAccessor));
 			_uow = uow ?? throw new ArgumentNullException(nameof(_uow));
 			_usedPasswordsService = usedPasswordsService ?? throw new ArgumentNullException(nameof(_usedPasswordsService));
+			_roleManager = roleManager ?? throw new ArgumentNullException(nameof(_roleManager));
 			_users = uow.Set<User>();
 		}
 
@@ -97,6 +99,8 @@ namespace Identity.Services.Identity
 			var result = await base.CreateAsync(user, password);
 			if (result.Succeeded)
 			{
+				var role = await _roleManager.GetRoleByName("User");
+				await AddUsersRolesAsync(new List<int>(user.Id), new List<int>(role.Id));
 				await _usedPasswordsService.AddToUsedPasswordsListAsync(user);
 			}
 			return result;
@@ -255,7 +259,7 @@ namespace Identity.Services.Identity
 				return IdentityResult.Failed(new IdentityError
 				{
 					Code = "UserNotFound",
-					Description = "کاربر مورد نظر یافت نشد."
+					Description = "User not found."
 				});
 			}
 
@@ -277,7 +281,7 @@ namespace Identity.Services.Identity
 				return IdentityResult.Failed(new IdentityError
 				{
 					Code = "UserNotFound",
-					Description = "کاربر مورد نظر یافت نشد."
+					Description = "User not found."
 				});
 			}
 
@@ -345,7 +349,7 @@ namespace Identity.Services.Identity
 				return IdentityResult.Failed(new IdentityError
 				{
 					Code = "UserNotFound",
-					Description = "کاربر مورد نظر یافت نشد."
+					Description = "User not found."
 				});
 			}
 
@@ -375,11 +379,6 @@ namespace Identity.Services.Identity
 				var user = await FindByIdIncludeUserRolesAsync(userId);
 				if (user == null)
 				{
-					//return IdentityResult.Failed(new IdentityError
-					//{
-					//    Code = "UserNotFound",
-					//    Description = "کاربر مورد نظر یافت نشد."
-					//});
 					continue;
 				}
 
@@ -407,7 +406,7 @@ namespace Identity.Services.Identity
 				return IdentityResult.Failed(new IdentityError
 				{
 					Code = "Error",
-					Description = "خطا در ثبت دیتا"
+					Description = "Error in Storing data"
 				});
 			}
 

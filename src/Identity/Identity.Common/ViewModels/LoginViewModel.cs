@@ -5,15 +5,15 @@ namespace Identity.Common.ViewModels
     public class LoginViewModel
     {
         [Required(ErrorMessage = "(*)")]
-        [Display(Name = "نام کاربری")]
+        [Display(Name = "Username")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "(*)")]
-        [Display(Name = "کلمه‌ی عبور")]
+        [Display(Name = "Password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "به‌خاطر سپاری کلمه‌ی عبور؟")]
+        [Display(Name = "RememberMe?")]
         public bool RememberMe { get; set; }
     }
 }

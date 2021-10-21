@@ -96,7 +96,7 @@ namespace Identity.Services.Identity
             return IdentityResult.Failed(new IdentityError
             {
                 Code = "RoleIsNull",
-                Description = "اطلاعات صحیح نمیباشد."
+                Description = "The information is incorrect."
             });
         }
         public async Task<Role> GetRoleByName(string name)
@@ -213,13 +213,13 @@ namespace Identity.Services.Identity
                 }
                 else
                 {
-                    return IdentityResult.Failed(new IdentityError() { Code = "RemoveRoles", Description = "نقش وجود ندارد" });
+                    return IdentityResult.Failed(new IdentityError() { Code = "RemoveRoles", Description = "Role not exist" });
 
                 }
             }
             catch (Exception)
             {
-                return IdentityResult.Failed(new IdentityError() { Code = "RemoveRoles", Description = "خطا در حذف نقش" });
+                return IdentityResult.Failed(new IdentityError() { Code = "RemoveRoles", Description = "Error deleting role" });
             }
 
             return IdentityResult.Success;

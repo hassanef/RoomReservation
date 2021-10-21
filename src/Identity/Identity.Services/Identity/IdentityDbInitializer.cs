@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -92,15 +93,6 @@ namespace Identity.Services.Identity
                 }
             });
 
-            _scopeFactory.RunScopedService<ApplicationDbContext>(context =>
-            {
-
-                if (!context.Roles.IgnoreQueryFilters().Any())
-                {
-                    context.Add(new Role(ConstantRoles.Admin));
-                    context.SaveChanges();
-                }
-            });
         }
 
         public async Task<IdentityResult> SeedDatabaseWithAdminUserAsync()
@@ -112,10 +104,44 @@ namespace Identity.Services.Identity
             var password = adminUserSeed.Password;
             var email = adminUserSeed.Email;
             var roleName = adminUserSeed.RoleName;
+            
 
             var thisMethodName = nameof(SeedDatabaseWithAdminUserAsync);
 
-           
+            //Create the `User` Role and Claims if it does not exist
+            var userRole = await _roleManager.GetRoleByName(ConstantRoles.User);
+            if (userRole == null)
+            {
+                userRole = new Role(ConstantRoles.User);
+
+                var userRoleResult = await _roleManager.CreateRole(userRole);
+                if (userRoleResult == IdentityResult.Failed())
+                {
+                    _logger.LogError($"{thisMethodName}: userRole CreateAsync failed. {userRoleResult.DumpErrors()}");
+                    return IdentityResult.Failed();
+                }
+                else
+                {
+                    var claimRoomReservation = new RoleClaim() { RoleId = userRole.Id, ClaimType = ConstantPolicies.DynamicPermission, ClaimValue = "CreateRoomReservation" };
+                    var claimCreateResourceReservation = new RoleClaim() { RoleId = userRole.Id, ClaimType = ConstantPolicies.DynamicPermission, ClaimValue = "CreateResourceReservation" };
+
+                    userRole.Claims = new List<RoleClaim>();
+                    userRole.Claims.Add(claimRoomReservation);
+                    userRole.Claims.Add(claimCreateResourceReservation);
+
+                    var roleClaimResult = await _roleManager.UpdateAsync(userRole);
+                    if (roleClaimResult == IdentityResult.Failed())
+                    {
+                        _logger.LogError($"{thisMethodName}: roleClaim UpdateAsync failed. {userRoleResult.DumpErrors()}");
+                        return IdentityResult.Failed();
+                    }
+                }
+            }
+            else
+            {
+                _logger.LogInformation($"{thisMethodName}: userRole already exists.");
+            }
+
             var adminUser = await _applicationUserManager.FindByNameAsync(name);
             if (adminUser != null)
             {
@@ -140,6 +166,8 @@ namespace Identity.Services.Identity
             {
                 _logger.LogInformation($"{thisMethodName}: adminRole already exists.");
             }
+
+         
 
             adminUser = new User
             {

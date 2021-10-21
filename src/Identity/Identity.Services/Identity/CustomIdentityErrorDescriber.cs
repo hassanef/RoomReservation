@@ -10,7 +10,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(ConcurrencyFailure),
-                Description = "رکورد جاری پیشتر ویرایش شده‌است و تغییرات شما آن‌را بازنویسی خواهد کرد."
+                Description = "The current record has already been edited and your changes will overwrite it."
             };
         }
 
@@ -19,7 +19,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(DefaultError),
-                Description = "خطایی رخ داده‌است."
+                Description = "Error happend."
             };
         }
 
@@ -28,7 +28,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(DuplicateEmail),
-                Description = string.Format("ایمیل '{0}' هم اکنون مورد استفاده است.", email)
+                Description = string.Format("Email '{0}' is currently in use.", email)
             };
         }
 
@@ -37,7 +37,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(DuplicateRoleName),
-                Description = string.Format("نقش '{0}' هم اکنون مورد استفاده‌است.", role)
+                Description = string.Format("Role '{0}' is currently in use.", role)
             };
         }
 
@@ -46,7 +46,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(DuplicateUserName),
-                Description = string.Format("نام کاربری '{0}' هم اکنون مورد استفاده‌است.", userName)
+                Description = string.Format("Username '{0}' is currently in use.", userName)
             };
         }
 
@@ -55,7 +55,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(InvalidEmail),
-                Description = string.Format("ایمیل '{0}' معتبر نیست.", email)
+                Description = string.Format("Email '{0}' is not valid.", email)
             };
         }
 
@@ -64,7 +64,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(InvalidRoleName),
-                Description = string.Format("نقش '{0}' معتبر نیست.", role)
+                Description = string.Format("Role '{0}' is not valid.", role)
             };
         }
 
@@ -73,7 +73,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(InvalidToken),
-                Description = "توکن غیر معتبر."
+                Description = "Token is invalid."
             };
         }
 
@@ -82,7 +82,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(InvalidUserName),
-                Description = string.Format("نام کاربری '{0}' معتبر نیست و تنها می‌تواند حاوی حروف و یا ارقام باشد.", userName)
+                Description = string.Format("Username '{0}' is invalid and can only contain letters or numbers.", userName)
             };
         }
 
@@ -91,7 +91,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(LoginAlreadyAssociated),
-                Description = "این کاربر پیشتر اضافه شده‌است."
+                Description = "This user has already been added."
             };
         }
 
@@ -100,7 +100,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(PasswordMismatch),
-                Description = "کلمه‌ی عبور نامعتبر."
+                Description = "Invalid password."
             };
         }
 
@@ -109,7 +109,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(PasswordRequiresDigit),
-                Description = "کلمه‌ی عبور باید حداقل دارای یک رقم بین 0 تا 9 باشد."
+                Description = "Password must have at least one digit between 0 and 9."
             };
         }
 
@@ -118,7 +118,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(PasswordRequiresLower),
-                Description = "کلمه‌ی عبور باید حداقل دارای یک حرف کوچک انگلیسی باشد."
+                Description = "Password must contain at least one lowercase English letter."
             };
         }
 
@@ -127,7 +127,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(PasswordRequiresNonAlphanumeric),
-                Description = "کلمه‌ی عبور باید حداقل دارای یک حرف خارج از حروف الفبای انگلیسی و همچنین اعداد باشد."
+                Description = "The password must contain at least one letter outside the English alphabet, as well as numbers."
             };
         }
 
@@ -136,7 +136,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(PasswordRequiresUniqueChars),
-                Description = "کلمه‌ی عبور باید حداقل داراى {0} حرف متفاوت باشد."
+                Description = "Password must contain at least {0} different letters."
             };
         }
 
@@ -145,7 +145,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(PasswordRequiresUpper),
-                Description = "کلمه‌ی عبور باید حداقل دارای یک حرف بزرگ انگلیسی باشد."
+                Description = "Password must contain at least one capital letter in English."
             };
         }
 
@@ -154,7 +154,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(PasswordTooShort),
-                Description = string.Format("کلمه‌ی عبور باید حداقل {0} حرف باشد.", length)
+                Description = string.Format("Password must be at least {0} letters.", length)
             };
         }
 
@@ -163,7 +163,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(RecoveryCodeRedemptionFailed),
-                Description = "بازیابى با شکست مواجه شد."
+                Description = "Recovery failed."
             };
         }
 
@@ -172,7 +172,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(UserAlreadyHasPassword),
-                Description = "کلمه‌ی عبور کاربر پیشتر تنظیم شده‌است."
+                Description = "The user's password is already set."
             };
         }
 
@@ -181,7 +181,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(UserAlreadyInRole),
-                Description = string.Format("کاربر هم اکنون دارای نقش '{0}' است.", role)
+                Description = string.Format("User is currently playing '{0}'.", role)
             };
         }
 
@@ -190,7 +190,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(UserLockoutNotEnabled),
-                Description = "قفل شدن اکانت برای این کاربر تنظیم نشده‌است."
+                Description = "Account lock is not set for this user."
             };
         }
 
@@ -199,7 +199,7 @@ namespace Identity.Services.Identity
             return new IdentityError
             {
                 Code = nameof(UserNotInRole),
-                Description = "کاربر دارای نقش '{0}' نیست."
+                Description = "The user does not have the role '{0}'."
             };
         }
     }

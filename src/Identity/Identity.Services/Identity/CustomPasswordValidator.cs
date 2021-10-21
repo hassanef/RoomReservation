@@ -40,7 +40,7 @@ namespace Identity.Services.Identity
                 errors.Add(new IdentityError
                 {
                     Code = "PasswordIsNotSet",
-                    Description = "لطفا کلمه‌ی عبور را تکمیل کنید."
+                    Description = "Please fill in the password."
                 });
                 return IdentityResult.Failed(errors.ToArray());
             }
@@ -50,7 +50,7 @@ namespace Identity.Services.Identity
                 errors.Add(new IdentityError
                 {
                     Code = "UserNameIsNotSet",
-                    Description = "لطفا نام کاربری را تکمیل کنید."
+                    Description = "Please fill in the username."
                 });
                 return IdentityResult.Failed(errors.ToArray());
             }
@@ -65,7 +65,7 @@ namespace Identity.Services.Identity
                 errors.Add(new IdentityError
                 {
                     Code = "PasswordContainsUserName",
-                    Description = "کلمه‌ی عبور نمی‌تواند حاوی قسمتی از نام کاربری باشد."
+                    Description = "Password cannot contain part of username."
                 });
                 return IdentityResult.Failed(errors.ToArray());
             }
@@ -75,7 +75,7 @@ namespace Identity.Services.Identity
                 errors.Add(new IdentityError
                 {
                     Code = "PasswordIsNotSafe",
-                    Description = "کلمه‌ی عبور وارد شده به سادگی قابل حدس زدن است."
+                    Description = "The password entered is easy to guess."
                 });
                 return IdentityResult.Failed(errors.ToArray());
             }
@@ -85,7 +85,7 @@ namespace Identity.Services.Identity
                 errors.Add(new IdentityError
                 {
                     Code = "IsPreviouslyUsedPassword",
-                    Description = "لطفا کلمه‌ی عبور دیگری را انتخاب کنید. این کلمه‌ی عبور پیشتر توسط شما استفاده شده‌است و تکراری می‌باشد."
+                    Description = "Please choose another password. This password has been used by you before and is duplicate."
                 });
                 return IdentityResult.Failed(errors.ToArray());
             }

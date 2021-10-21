@@ -17,6 +17,7 @@ namespace Identity.Entities.Identity
         {
             UserUsedPasswords = new HashSet<UserUsedPassword>();
             UserTokens = new HashSet<UserToken>();
+            Roles = new List<UserRole>();
         }
 
         [StringLength(450)]

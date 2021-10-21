@@ -51,7 +51,7 @@ namespace Identity.Services.Identity
                     errors.Add(new IdentityError
                     {
                         Code = "EmailIsNotSet",
-                        Description = "لطفا اطلاعات ایمیل را تکمیل کنید."
+                        Description = "Please fill in the email information."
                     });
                 }
                 return; // base.ValidateAsync() will cover this case
@@ -62,7 +62,7 @@ namespace Identity.Services.Identity
                 errors.Add(new IdentityError
                 {
                     Code = "BadEmailDomainError",
-                    Description = "لطفا یک ایمیل پروایدر معتبر را وارد نمائید."
+                    Description = "Please enter a valid email provider."
                 });
             }
         }
@@ -77,7 +77,7 @@ namespace Identity.Services.Identity
                     errors.Add(new IdentityError
                     {
                         Code = "UserIsNotSet",
-                        Description = "لطفا اطلاعات کاربری را تکمیل کنید."
+                        Description = "Please complete the user information."
                     });
                 }
                 return;  // base.ValidateAsync() will cover this case
@@ -88,7 +88,7 @@ namespace Identity.Services.Identity
                 errors.Add(new IdentityError
                 {
                     Code = "BadUserNameError",
-                    Description = "نام کاربری وارد شده نمی‌تواند حاوی اعداد باشد."
+                    Description = "The username entered cannot contain numbers."
                 });
             }
 
@@ -97,7 +97,7 @@ namespace Identity.Services.Identity
                 errors.Add(new IdentityError
                 {
                     Code = "BadUserNameError",
-                    Description = "نام کاربری وارد شده معتبر نیست."
+                    Description = "The username entered is not valid."
                 });
             }
         }

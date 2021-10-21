@@ -9,10 +9,6 @@ using System.Threading.Tasks;
 
 namespace Identity.Services.Identity
 {
-    /// <summary>
-    /// Customizing claims transformation in ASP.NET Core Identity
-    /// More info: http://www.dotnettips.info/post/2580
-    /// </summary>
     public class ApplicationClaimsPrincipalFactory : UserClaimsPrincipalFactory<User, Role>
     {
         public static readonly string PhotoFileName = nameof(PhotoFileName);

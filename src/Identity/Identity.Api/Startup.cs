@@ -1,11 +1,17 @@
+using Identity.Common.ViewModels;
+using Identity.DataLayer.Context;
+using Identity.Services.Configuration;
+using Identity.Services.Token;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -26,6 +32,18 @@ namespace Identity.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<SiteSettings>(options => Configuration.Bind(options));
+
+            services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<ApplicationDbContext>());
+
+            services.AddDbContext<ApplicationDbContext>(opt =>
+            {
+                opt.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection"));
+            });
+
+            services.AddIdentityOptions();
+            services.AddCustomIdentityServices();
+            services.Configure<BearerTokensOptions>(Configuration.GetSection("BearerTokens"));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
