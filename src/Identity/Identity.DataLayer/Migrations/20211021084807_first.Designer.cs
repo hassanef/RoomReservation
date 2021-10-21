@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Identity.DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211020182758_first")]
+    [Migration("20211021084807_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,7 +88,7 @@ namespace Identity.DataLayer.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("AppRoles");
                 });
 
             modelBuilder.Entity("Identity.Entities.Identity.RoleClaim", b =>
@@ -107,16 +107,11 @@ namespace Identity.DataLayer.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("RoleId1");
-
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("AppRoleClaims");
                 });
 
             modelBuilder.Entity("Identity.Entities.Identity.User", b =>
@@ -219,7 +214,7 @@ namespace Identity.DataLayer.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("AppUsers");
                 });
 
             modelBuilder.Entity("Identity.Entities.Identity.UserClaim", b =>
@@ -244,16 +239,11 @@ namespace Identity.DataLayer.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("AppUserClaims");
                 });
 
             modelBuilder.Entity("Identity.Entities.Identity.UserLogin", b =>
@@ -270,16 +260,11 @@ namespace Identity.DataLayer.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("LoginProvider", "ProviderKey");
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("AppUserLogins");
                 });
 
             modelBuilder.Entity("Identity.Entities.Identity.UserRole", b =>
@@ -290,21 +275,11 @@ namespace Identity.DataLayer.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("AppUserRoles");
                 });
 
             modelBuilder.Entity("Identity.Entities.Identity.UserToken", b =>
@@ -318,17 +293,12 @@ namespace Identity.DataLayer.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("AppUserTokens");
                 });
 
             modelBuilder.Entity("Identity.Entities.Identity.UserUsedPassword", b =>
@@ -339,7 +309,9 @@ namespace Identity.DataLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("HashedPassword")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -348,7 +320,7 @@ namespace Identity.DataLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserUsedPassword");
+                    b.ToTable("AppUserUsedPasswords");
                 });
 
             modelBuilder.Entity("Identity.Entities.Identity.CustomUserToken", b =>
@@ -364,70 +336,50 @@ namespace Identity.DataLayer.Migrations
 
             modelBuilder.Entity("Identity.Entities.Identity.RoleClaim", b =>
                 {
-                    b.HasOne("Identity.Entities.Identity.Role", null)
-                        .WithMany()
+                    b.HasOne("Identity.Entities.Identity.Role", "Role")
+                        .WithMany("Claims")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Identity.Entities.Identity.Role", "Role")
-                        .WithMany("Claims")
-                        .HasForeignKey("RoleId1");
 
                     b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Identity.Entities.Identity.UserClaim", b =>
                 {
-                    b.HasOne("Identity.Entities.Identity.User", null)
-                        .WithMany()
+                    b.HasOne("Identity.Entities.Identity.User", "User")
+                        .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Identity.Entities.Identity.User", "User")
-                        .WithMany("Claims")
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Identity.Entities.Identity.UserLogin", b =>
                 {
-                    b.HasOne("Identity.Entities.Identity.User", null)
-                        .WithMany()
+                    b.HasOne("Identity.Entities.Identity.User", "User")
+                        .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Identity.Entities.Identity.User", "User")
-                        .WithMany("Logins")
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Identity.Entities.Identity.UserRole", b =>
                 {
-                    b.HasOne("Identity.Entities.Identity.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Identity.Entities.Identity.Role", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId1");
-
-                    b.HasOne("Identity.Entities.Identity.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Identity.Entities.Identity.User", "User")
                         .WithMany("Roles")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Role");
 
@@ -436,15 +388,11 @@ namespace Identity.DataLayer.Migrations
 
             modelBuilder.Entity("Identity.Entities.Identity.UserToken", b =>
                 {
-                    b.HasOne("Identity.Entities.Identity.User", null)
-                        .WithMany()
+                    b.HasOne("Identity.Entities.Identity.User", "User")
+                        .WithMany("UserTokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Identity.Entities.Identity.User", "User")
-                        .WithMany("UserTokens")
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });

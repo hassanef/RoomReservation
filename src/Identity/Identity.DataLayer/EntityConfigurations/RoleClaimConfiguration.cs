@@ -8,11 +8,11 @@ namespace Identity.DataLayer.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<RoleClaim> builder)
         {
-            //builder.HasOne(roleClaim => roleClaim.Role)
-            //       .WithMany(role => role.Claims)
-            //       .HasForeignKey(roleClaim => roleClaim.RoleId);
+            builder.HasOne(roleClaim => roleClaim.Role)
+                   .WithMany(role => role.Claims)
+                   .HasForeignKey(roleClaim => roleClaim.RoleId);
 
-            //builder.ToTable("AppRoleClaims");
+            builder.ToTable("AppRoleClaims");
         }
     }
 }

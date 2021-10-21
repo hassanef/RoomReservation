@@ -6,11 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Identity.Entities.Identity
 {
-    /// <summary>
-    /// More info: http://www.dotnettips.info/post/2577
-    /// and http://www.dotnettips.info/post/2578
-    /// plus http://www.dotnettips.info/post/2559
-    /// </summary>
     public class User : IdentityUser<int>
     {
         public User()

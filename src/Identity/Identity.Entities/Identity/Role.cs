@@ -4,10 +4,6 @@ using System.Collections.Generic;
 
 namespace Identity.Entities.Identity
 {
-    /// <summary>
-    /// More info: http://www.dotnettips.info/post/2577
-    /// and http://www.dotnettips.info/post/2578
-    /// </summary>
     public class Role : IdentityRole<int>
     {
         public Guid? TenantId { get; set; }
