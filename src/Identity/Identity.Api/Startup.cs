@@ -33,7 +33,6 @@ namespace Identity.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<SiteSettings>(options => Configuration.Bind(options));
-
             services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<ApplicationDbContext>());
 
             services.AddDbContext<ApplicationDbContext>(opt =>
@@ -65,7 +64,7 @@ namespace Identity.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -41,15 +41,20 @@ namespace Identity.Api.Controllers
 
             var user = await _userManager.FindByNameAsync(loginUser.Username);
 
+            if (user == null || !user.IsActive)
+            {
+                return Unauthorized();
+            }
+
             var result1 = await _signInManager.PasswordSignInAsync(
               loginUser.Username,
               loginUser.Password,
               false,
               lockoutOnFailure: true);
 
-            if (user == null || !user.IsActive)
+            if(result1.Succeeded == false)
             {
-                return Unauthorized();
+                return BadRequest("error in sign in!");
             }
 
             var result = await _tokenFactoryService.CreateJwtTokensAsync(user);
@@ -58,18 +63,7 @@ namespace Identity.Api.Controllers
 
             return Ok(new { access_token = result.AccessToken, refresh_token = result.RefreshToken });
         }
-        [HttpGet("[action]"), HttpPost("[action]")]
-        public bool IsAuthenticated()
-        {
-            return User.Identity.IsAuthenticated;
-        }
-
-        [HttpGet("[action]"), HttpPost("[action]")]
-        public IActionResult GetUserInfo()
-        {
-            var claimsIdentity = User.Identity as ClaimsIdentity;
-            return Ok(new { Username = claimsIdentity.Name });
-        }
+      
 
     }
 

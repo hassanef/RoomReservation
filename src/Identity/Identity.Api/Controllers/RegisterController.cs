@@ -18,55 +18,13 @@ namespace Identity.Api.Controllers
     {
         private readonly ILogger<RegisterController> _logger;
         private readonly IApplicationUserManager _userManager;
-        private readonly IPasswordValidator<User> _passwordValidator;
-        private readonly IUserValidator<User> _userValidator;
-        private readonly IOptionsSnapshot<SiteSettings> _siteOptions;
-
+        
         public RegisterController(
             IApplicationUserManager userManager,
-            IPasswordValidator<User> passwordValidator,
-            IUserValidator<User> userValidator,
-            IOptionsSnapshot<SiteSettings> siteOptions,
             ILogger<RegisterController> logger)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-            _passwordValidator = passwordValidator ?? throw new ArgumentNullException(nameof(passwordValidator));
-            _userValidator = userValidator ?? throw new ArgumentNullException(nameof(userValidator));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _siteOptions = siteOptions ?? throw new ArgumentNullException(nameof(siteOptions));
-        }
-
-
-        [HttpPost("ValidateUsername")]
-        public async Task<IActionResult> ValidateUsername(string username, string email)
-        {
-            if (string.IsNullOrWhiteSpace(username))
-            {
-                return BadRequest();
-            }
-
-            var result = await _userValidator.ValidateAsync(
-                (UserManager<User>)_userManager, new User { UserName = username, Email = email });
-
-            if (result.Succeeded)
-            {
-                return Ok(true);
-            }
-            return Ok(false);
-        }
-
-
-        [HttpPost("ValidatePassword")]
-        public async Task<IActionResult> ValidatePassword(string password, string username)
-        {
-            var result = await _passwordValidator.ValidateAsync(
-                (UserManager<User>)_userManager, new User { UserName = username }, password);
-
-            if (result.Succeeded)
-            {
-                return Ok(true);
-            }
-            return Ok(false);
         }
 
 
