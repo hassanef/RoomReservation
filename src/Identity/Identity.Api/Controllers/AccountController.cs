@@ -31,7 +31,7 @@ namespace Identity.Api.Controllers
             _tokenStoreService = tokenStoreService;
             _uow = uow;
         }
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Login(LoginViewModel loginUser)
         {
             if (loginUser == null)
@@ -63,8 +63,26 @@ namespace Identity.Api.Controllers
 
             return Ok(new { access_token = result.AccessToken, refresh_token = result.RefreshToken });
         }
-      
 
+        [HttpPost("[action]")]
+        public async Task<IActionResult> RefreshToken(string refreshTokenValue)
+        {
+            if (string.IsNullOrWhiteSpace(refreshTokenValue))
+            {
+                return BadRequest("refreshToken is not set.");
+            }
+
+            var token = await _tokenStoreService.FindTokenAsync(refreshTokenValue);
+            if (token == null)
+            {
+                return Unauthorized();
+            }
+
+            var result = await _tokenFactoryService.CreateJwtTokensAsync(token.User);
+            await _tokenStoreService.AddUserTokenAsync(token.User, result.RefreshTokenSerial, result.AccessToken, _tokenFactoryService.GetRefreshTokenSerial(refreshTokenValue));
+            await _uow.SaveChangesAsync();
+
+            return Ok(new { access_token = result.AccessToken, refresh_token = result.RefreshToken });
+        }
     }
-
 }
