@@ -240,6 +240,8 @@ namespace Identity.Services.Contracts
         Task<ILookup<int, Role>> GetRolesForUsers(IEnumerable<int> userIds);
         Task<IList<Role>> GetRolesForUser(int userId, Guid applicationId);
 
+        Task<bool> Authorize(string currentClaim);
+
         #endregion
     }
 }

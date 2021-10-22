@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Identity.Services.Identity
@@ -195,38 +196,18 @@ namespace Identity.Services.Identity
 
         private int getCurrentUserId() => _contextAccessor.HttpContext.User.Identity.GetUserId<int>();
 
-
-        #endregion
-
-        #region CRUD
-
-        public async Task<IdentityResult> RemoveRoles(int[] roleIds)
+        public async Task<bool> Authorize(string currentClaim)
         {
-            try
-            {
-                var roles = await _roles.Where(x => roleIds.Contains(x.Id)).ToListAsync();
+            var roleId = 1;
 
-                if (roles.Any())
-                {
-                    _roles.RemoveRange(roles);
-                    await _uow.SaveChangesAsync();
-                }
-                else
-                {
-                    return IdentityResult.Failed(new IdentityError() { Code = "RemoveRoles", Description = "Role not exist" });
+            var result = await _roles.Include(x => x.Claims)
+                                     .AnyAsync(x => x.Id == roleId && x.Claims.Any(c => c.ClaimValue == currentClaim));
 
-                }
-            }
-            catch (Exception)
-            {
-                return IdentityResult.Failed(new IdentityError() { Code = "RemoveRoles", Description = "Error deleting role" });
-            }
-
-            return IdentityResult.Success;
+            return result;
         }
 
-        
         #endregion
+
 
     }
 }

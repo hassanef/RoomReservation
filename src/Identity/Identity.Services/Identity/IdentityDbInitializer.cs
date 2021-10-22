@@ -122,8 +122,8 @@ namespace Identity.Services.Identity
                 }
                 else
                 {
-                    var claimRoomReservation = new RoleClaim() { RoleId = userRole.Id, ClaimType = ConstantPolicies.DynamicPermission, ClaimValue = "CreateRoomReservation" };
-                    var claimCreateResourceReservation = new RoleClaim() { RoleId = userRole.Id, ClaimType = ConstantPolicies.DynamicPermission, ClaimValue = "CreateResourceReservation" };
+                    var claimRoomReservation = new RoleClaim() { RoleId = userRole.Id, ClaimType = ConstantPolicies.DynamicPermission, ClaimValue = "RoomReservation:CreateRoomReservation" };
+                    var claimCreateResourceReservation = new RoleClaim() { RoleId = userRole.Id, ClaimType = ConstantPolicies.DynamicPermission, ClaimValue = "ResourceReservation:CreateResourceReservation" };
 
                     userRole.Claims = new List<RoleClaim>();
                     userRole.Claims.Add(claimRoomReservation);

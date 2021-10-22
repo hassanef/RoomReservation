@@ -14,19 +14,23 @@ namespace Identity.Api.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IApplicationSignInManager _signInManager;
+        private readonly IApplicationRoleManager _roleManager;
         private readonly IApplicationUserManager _userManager;
         private readonly ITokenFactoryService _tokenFactoryService;
         private readonly ITokenStoreService _tokenStoreService;
         private readonly IUnitOfWork _uow;
 
+
         public AccountController(IApplicationUserManager userManager,
                           IApplicationSignInManager signInManager,
+                          IApplicationRoleManager roleManager,
                           ITokenFactoryService tokenFactoryService,
                           ITokenStoreService tokenStoreService,
                           IUnitOfWork uow)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _tokenFactoryService = tokenFactoryService;
             _tokenStoreService = tokenStoreService;
             _uow = uow;
@@ -83,6 +87,12 @@ namespace Identity.Api.Controllers
             await _uow.SaveChangesAsync();
 
             return Ok(new { access_token = result.AccessToken, refresh_token = result.RefreshToken });
+        }
+
+        [HttpGet("[action]/{currentClaimValue}")]
+        public async Task<bool> Authorize(string currentClaimValue)
+        {
+            return await _roleManager.Authorize(currentClaimValue);
         }
     }
 }
