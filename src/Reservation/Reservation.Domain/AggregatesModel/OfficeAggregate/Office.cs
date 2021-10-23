@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Reservation.Domain.Seedwork;
-using System;
+﻿using Reservation.Domain.Seedwork;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reservation.Domain.AggregatesModel
 {
@@ -19,7 +14,7 @@ namespace Reservation.Domain.AggregatesModel
         public Office(string title, Location location)
         {
             Title = title;
-            Location = Location;
+            Location = location;
             _rooms = new();
         }
         public void AddOffice(string title, byte personCapacity, bool hasChair)
