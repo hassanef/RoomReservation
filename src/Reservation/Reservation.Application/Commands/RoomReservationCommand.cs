@@ -11,7 +11,6 @@ namespace Reservation.Application.Commands
     public class RoomReservationCommand : IRequest<bool>
     {
         public int RoomId { get; init; }
-        public int UserId { get; init; }
         public DateTime StartDate { get; init; }
         public DateTime EndDate { get; init; }
         public Location Location { get; init; }
