@@ -20,9 +20,8 @@ namespace Reservation.Api.Controllers
             _mediator = mediator;
         }
 
-        // POST api/v1/<ResourceReservationApi>
-        [HttpPost]
-        public async Task<IActionResult> Post(ResourceReservationCommand cmd)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AddResourceReservation(ResourceReservationCommand cmd)
         {
             var result = await _mediator.Send(cmd);
 

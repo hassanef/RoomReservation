@@ -22,19 +22,10 @@ namespace Reservation.Api.Controllers
         {
             _mediator = mediator;
         }
-      
-        //// GET api/v1/<RoomReservationApi>/5
-        //[HttpGet("{location}")]
-        //public async Task<IActionResult> Get(int location)
-        //{
-        //    var result = await _query.GetRoomReservations((Location) location);
 
-        //    return Ok(result);
-        //}
 
-        // POST api/v1/<RoomReservationApi>
-        [HttpPost]
-        public async Task<IActionResult> Post(RoomReservationCommand cmd)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AddRoomReservation(RoomReservationCommand cmd)
         {
             var result = await _mediator.Send(cmd);
 
