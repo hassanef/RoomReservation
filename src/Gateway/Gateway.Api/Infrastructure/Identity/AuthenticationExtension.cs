@@ -3,10 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Ocelot.Middleware;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,7 +40,7 @@ namespace Gateway.Api.Infrastructure.Identity
                              var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(JwtBearerEvents));
                              logger.LogError("Authentication failed.", context.Exception);
 
-                             throw new UnauthorizedAccessException("Authentication Failed ");
+                             throw new UnauthorizedAccessException("Authentication Failed, token is invalid!");
                          },
                          OnTokenValidated = context =>
                          {

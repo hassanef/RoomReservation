@@ -9,22 +9,22 @@ using System.Threading.Tasks;
 
 namespace Reservation.Application.Queries
 {
-    public class RoomReservationQuery: IRoomReservationQuery
-    {
-        private readonly ReservationDbContextReadOnly _contextReadOnly;
+    //public class RoomReservationQuery: IRoomReservationQuery
+    //{
+    //    private readonly ReservationDbContextReadOnly _contextReadOnly;
 
-        public RoomReservationQuery(ReservationDbContextReadOnly contextReadOnly)
-        {
-            _contextReadOnly = contextReadOnly;
-        }
+    //    public RoomReservationQuery(ReservationDbContextReadOnly contextReadOnly)
+    //    {
+    //        _contextReadOnly = contextReadOnly;
+    //    }
 
-        public async Task<List<RoomReservationReadModel>> GetRoomReservations(Location location)
-        {
-            return await _contextReadOnly.RoomReservations.Include(x => x.ResourceReservations)
-                                                          .Include(x => x.Room)
-                                                          .ThenInclude(x => x.Office)
-                                                          .Where(x => x.Room.Office.Location == location)
-                                                          .ToListAsync();
-        }
-    }
+    //    //public async Task<List<RoomReservationReadModel>> GetRoomReservations(Location location)
+    //    //{
+    //    //    return await _contextReadOnly.RoomReservations.Include(x => x.ResourceReservations)
+    //    //                                                  .Include(x => x.Room)
+    //    //                                                  .ThenInclude(x => x.Office)
+    //    //                                                  .Where(x => x.Room.Office.Location == location)
+    //    //                                                  .ToListAsync();
+    //    //}
+    //}
 }

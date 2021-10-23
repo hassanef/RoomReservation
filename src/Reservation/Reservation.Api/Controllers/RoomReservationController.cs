@@ -9,31 +9,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Reservation.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class RoomReservationApi : ControllerBase
+    public class RoomReservationController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IRoomReservationQuery _query;
 
-        public RoomReservationApi(IMediator mediator, IRoomReservationQuery query)
+        public RoomReservationController(IMediator mediator)
         {
             _mediator = mediator;
-            _query = query;
         }
       
-        // GET api/v1/<RoomReservationApi>/5
-        [HttpGet("{location}")]
-        public async Task<IActionResult> Get(int location)
-        {
-            var result = await _query.GetRoomReservations((Location) location);
+        //// GET api/v1/<RoomReservationApi>/5
+        //[HttpGet("{location}")]
+        //public async Task<IActionResult> Get(int location)
+        //{
+        //    var result = await _query.GetRoomReservations((Location) location);
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
         // POST api/v1/<RoomReservationApi>
         [HttpPost]

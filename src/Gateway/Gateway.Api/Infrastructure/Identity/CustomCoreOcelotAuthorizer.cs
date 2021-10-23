@@ -42,6 +42,9 @@ namespace Gateway.Api.Infrastructure.Identity
                 (AnonymousAccess.RegisterController == controller && AnonymousAccess.RegisterAction == action))
                 return true;
 
+            if (!user.Identity.IsAuthenticated)
+                throw new UnauthorizedAccessException("Unauthenticated");
+
             if (!string.IsNullOrEmpty(controller) || !string.IsNullOrEmpty(action))
             {
                 var currentClaimValue = $"{controller}:{action}";

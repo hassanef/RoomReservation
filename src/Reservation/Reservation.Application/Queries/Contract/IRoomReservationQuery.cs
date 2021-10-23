@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Reservation.Application.Queries.Contract
 {
-    public interface IRoomReservationQuery
-    {
-        Task<List<RoomReservationReadModel>> GetRoomReservations(Location location);
-    }
+    //public interface IRoomReservationQuery
+    //{
+    //  //  Task<List<RoomReservationReadModel>> GetRoomReservations(Location location);
+    //}
 }

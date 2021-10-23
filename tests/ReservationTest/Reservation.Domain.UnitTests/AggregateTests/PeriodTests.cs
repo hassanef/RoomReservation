@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Reservation.Domain.UnitTests.AggregateTests
 {
-    public class PeriodTest
+    public class PeriodTests
     {
         [Fact]
         public void Create_Period_With_Valid_DateTime_For_Amsterdam()
