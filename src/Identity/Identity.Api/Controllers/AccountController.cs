@@ -47,7 +47,7 @@ namespace Identity.Api.Controllers
 
             if (user == null || !user.IsActive)
             {
-                return Unauthorized();
+                return NotFound();
             }
 
             var result1 = await _signInManager.PasswordSignInAsync(

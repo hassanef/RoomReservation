@@ -20,7 +20,6 @@ namespace Reservation.Api.Controllers
             _roomQuery = roomQuery;
         }
      
-        // GET api/v1/<RoomApiController>/5
         [HttpGet("[action]/{officeId}")]
         public async Task<IActionResult> GetRooms(int officeId)
         {

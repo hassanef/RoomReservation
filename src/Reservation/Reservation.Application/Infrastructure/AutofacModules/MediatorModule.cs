@@ -21,7 +21,7 @@ namespace Ticket.Application.Infrastructure.AutofacModules
                 return t => c.Resolve(t);
             });
 
-            //// Register all the Command classes (they implement IRequestHandler) in assembly holding the Commands
+            // Register all the Command classes (they implement IRequestHandler) in assembly holding the Commands
             builder.RegisterAssemblyTypes(typeof(RoomReservationCommand).GetTypeInfo().Assembly)
                 .AsClosedTypesOf(typeof(IRequestHandler<,>));
 
@@ -29,7 +29,6 @@ namespace Ticket.Application.Infrastructure.AutofacModules
              .Where(t => t.IsClosedTypeOf(typeof(IValidator<>)))
              .AsImplementedInterfaces();
 
-            //builder.RegisterGeneric(typeof(LoggingBehavior<,>)).As(typeof(IPipelineBehavior<,>));
             builder.RegisterGeneric(typeof(ValidatorBehavior<,>)).As(typeof(IPipelineBehavior<,>));
         }
     }

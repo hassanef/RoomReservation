@@ -2,11 +2,11 @@
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/{version}/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44389
+          "Host": "reservation.api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/api/{version}/r/{everything}",
@@ -14,19 +14,18 @@
     },
     {
       "DownstreamPathTemplate": "/api/{version}/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44326
+          "Host": "identity.api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/api/{version}/a/{everything}",
       "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
     }
-
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:44367"
+    "BaseUrl": "http://localhost:5010"
   }
 }

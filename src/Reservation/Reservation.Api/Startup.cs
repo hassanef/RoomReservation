@@ -11,6 +11,7 @@ using Reservation.Infrastructure.Context;
 using System;
 using Ticket.Application.Infrastructure.AutofacModules;
 using Newtonsoft.Json;
+using Reservation.Application.Infrastructure.TokenConfiguration;
 
 namespace Reservation.Api
 {
@@ -41,6 +42,8 @@ namespace Reservation.Api
                         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                     );
 
+      
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Reservation.Api", Version = "v1" });
@@ -68,8 +71,7 @@ namespace Reservation.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

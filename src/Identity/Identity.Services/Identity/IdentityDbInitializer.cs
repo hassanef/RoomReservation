@@ -124,10 +124,12 @@ namespace Identity.Services.Identity
                 {
                     var claimRoomReservation = new RoleClaim() { RoleId = userRole.Id, ClaimType = ConstantPolicies.DynamicPermission, ClaimValue = "RoomReservation:CreateRoomReservation" };
                     var claimCreateResourceReservation = new RoleClaim() { RoleId = userRole.Id, ClaimType = ConstantPolicies.DynamicPermission, ClaimValue = "ResourceReservation:CreateResourceReservation" };
+                    var claimGetRooms = new RoleClaim() { RoleId = userRole.Id, ClaimType = ConstantPolicies.DynamicPermission, ClaimValue = "Room:GetRooms" };
 
                     userRole.Claims = new List<RoleClaim>();
                     userRole.Claims.Add(claimRoomReservation);
                     userRole.Claims.Add(claimCreateResourceReservation);
+                    userRole.Claims.Add(claimGetRooms);
 
                     var roleClaimResult = await _roleManager.UpdateAsync(userRole);
                     if (roleClaimResult == IdentityResult.Failed())

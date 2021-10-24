@@ -19,7 +19,6 @@ namespace Ticket.Application.Infrastructure.AutofacModules
             builder.RegisterType<RoomReservationRepository>().As<IRoomReservationRepository>().InstancePerLifetimeScope(); 
             builder.RegisterType<ReservationSeedData>().As<IReservationSeedData>().InstancePerLifetimeScope();
             builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().InstancePerLifetimeScope();
-            //builder.RegisterType<RoomReservationQuery>().As<IRoomReservationQuery>().InstancePerLifetimeScope();
             builder.RegisterType<ResourceReservationQuery>().As<IResourceReservationQuery>().InstancePerLifetimeScope();
             builder.RegisterType<RoomQuery>().As<IRoomQuery>().InstancePerLifetimeScope();
             builder.RegisterType<ReservationDbContextReadOnly>().InstancePerLifetimeScope();
