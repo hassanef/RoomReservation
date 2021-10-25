@@ -1050,7 +1050,7 @@ namespace Identity.Services.Contracts
 
         Task<IdentityResult> RemoveUserRolesAsync(int userId, IList<int> removeRoleIds);
 
-        Task<IdentityResult> AddUsersRolesAsync(IList<int> userIds, IList<int> selectedRoleIds);
+        Task<IdentityResult> AddUsersRolesAsync(int userId, int roleId);
 
         Task<int> GetUserCountAsync(Expression<Func<User, bool>> where);
 

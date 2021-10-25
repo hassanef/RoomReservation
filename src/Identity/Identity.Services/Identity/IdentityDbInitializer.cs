@@ -195,7 +195,7 @@ namespace Identity.Services.Identity
                 return IdentityResult.Failed();
             }
 
-            var addToRoleResult = await _applicationUserManager.AddUsersRolesAsync(new int[] { adminUser.Id }, new int[]{ adminRole.Id});
+            var addToRoleResult = await _applicationUserManager.AddUsersRolesAsync(adminUser.Id , adminRole.Id);
             if (addToRoleResult == IdentityResult.Failed())
             {
                 _logger.LogError($"{thisMethodName}: adminUser AddToRoleAsync failed. {addToRoleResult.DumpErrors()}");

@@ -1,4 +1,5 @@
 ﻿using DNTCommon.Web.Core;
+using Identity.Common.IdentityToolkit;
 using Identity.DataLayer.Context;
 using Identity.Entities.Identity;
 using Identity.Services.Contracts;
@@ -198,7 +199,7 @@ namespace Identity.Services.Identity
 
         public async Task<bool> Authorize(string currentClaim)
         {
-            var roleId = 1;
+            var roleId = _contextAccessor.GetRoleId();
 
             var result = await _roles.Include(x => x.Claims)
                                      .AnyAsync(x => x.Id == roleId && x.Claims.Any(c => c.ClaimValue == currentClaim));

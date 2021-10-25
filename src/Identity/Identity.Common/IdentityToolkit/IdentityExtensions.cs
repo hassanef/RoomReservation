@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Linq;
 using System.Text;
 
 namespace Identity.Common.IdentityToolkit
@@ -43,5 +45,14 @@ namespace Identity.Common.IdentityToolkit
             return results.ToString();
         }
 
+
+        public static int GetRoleId(this IHttpContextAccessor contextAccessor)
+        {
+            contextAccessor.HttpContext.Request.Headers.TryGetValue("RoleId", out Microsoft.Extensions.Primitives.StringValues userId);
+
+            if (!string.IsNullOrWhiteSpace(userId))
+                return int.Parse(userId);
+            return 0;
+        }
     }
 }

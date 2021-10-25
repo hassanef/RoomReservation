@@ -169,7 +169,7 @@ namespace Identity.Services.Token
             var roles = (await _rolesService.GetRolesForUsers(new List<int> { user.Id }));
 
             if(roles.Any())
-                claims.Add(new Claim(ClaimTypes.Role, roles.First(x => x.Id == 1).Name, ClaimValueTypes.String, _config["BearerTokens:Issuer"]));
+                claims.Add(new Claim("roleId", roles.First().Id.ToString(), ClaimValueTypes.String, _config["BearerTokens:Issuer"]));
 
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["BearerTokens:Key"]));
