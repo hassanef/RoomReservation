@@ -15,27 +15,30 @@ namespace Reservation.Application.Validations
         public RoomReservationInputValidator(IRoomReservationRepository roomReservationRepository,
                                              IOfficeRepository roomRepository)
         {
-             RuleFor(model => model.RoomId)
-                .NotEmpty()
-                .MustAsync(async (roomId, cancellation) =>
-                {
-                    var count = await roomRepository.CountAsync(x => x.Id == roomId);
+            RuleFor(model => model.RoomId)
+               .NotEmpty()
+               .MustAsync(async (roomId, cancellation) =>
+               {
+                   var count = await roomRepository.CountAsync(x => x.Id == roomId);
 
-                    return count == 1;
-                }).WithMessage("room not found!");
+                   return count == 1;
+               }).WithMessage("room not found!")
+                 .DependentRules(() =>
+                 {
+                     RuleFor(model => model)
+                         .NotEmpty()
+                         .MustAsync(async (model, cancellation) =>
+                         {
+                             var count = await roomReservationRepository.CountAsync(x => x.RoomId == model.RoomId &&
+                                                                                   (model.StartDate <= x.Period.Start && model.EndDate >= x.Period.Start) ||
+                                                                                   (model.StartDate >= x.Period.Start && model.EndDate <= x.Period.End) ||
+                                                                                   (model.StartDate >= x.Period.Start && model.StartDate <= x.Period.End) ||
+                                                                                   (model.EndDate >= x.Period.Start && model.EndDate <= x.Period.End));
 
-            RuleFor(model => model)
-              .NotEmpty()
-              .MustAsync(async (model, cancellation) =>
-              {
-                  var count = await roomReservationRepository.CountAsync(x => x.RoomId == model.RoomId &&
-                                                                        (model.StartDate <= x.Period.Start && model.EndDate >= x.Period.Start) ||
-                                                                        (model.StartDate >= x.Period.Start && model.EndDate <= x.Period.End) ||
-                                                                        (model.StartDate >= x.Period.Start && model.StartDate <= x.Period.End) ||
-                                                                        (model.EndDate >= x.Period.Start && model.EndDate <= x.Period.End));
+                             return count == 0;
+                         }).WithMessage("room is busy in selected date time!");
 
-                  return count == 0;
-              }).WithMessage("room is busy in selected date time!");
+                 });
 
             RuleFor(model => model.StartDate)
                .Must(startDate =>

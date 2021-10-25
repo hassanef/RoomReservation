@@ -55,8 +55,6 @@ namespace Gateway.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gateway.Api v1"));
             }
 
-            //app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthentication();
@@ -64,15 +62,8 @@ namespace Gateway.Api
             //ignore Ocelat ReRoutes
             AppMapWhen(app);
 
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-
-
             app.UseMiddleware<AuthorizationMiddleware>();
             app.UseOcelot().Wait();
-           // app.UseMvc();
 
             app.UseEndpoints(endpoints =>
             {

@@ -12,6 +12,7 @@ using System;
 using Ticket.Application.Infrastructure.AutofacModules;
 using Newtonsoft.Json;
 using Reservation.Application.Infrastructure.TokenConfiguration;
+using Reservation.Application.Infrastructure.Middlewares;
 
 namespace Reservation.Api
 {
@@ -71,7 +72,8 @@ namespace Reservation.Api
 
             app.UseRouting();
 
-          
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

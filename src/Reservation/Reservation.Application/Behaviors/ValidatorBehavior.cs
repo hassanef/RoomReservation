@@ -25,8 +25,10 @@ namespace Ticket.Application.Behaviors
 
             if (failures.Any())
             {
-                throw new ReservationException(
-                   $"Command Validation Errors for type {typeof(TRequest).Name}", new ValidationException("Validation exception", failures));
+                throw new ValidationException(failures);
+
+                //throw new ReservationException(
+                //   $"Command Validation Errors for type {typeof(TRequest).Name}", new ValidationException("Validation exception", failures));
             }
 
             var response = await next();
