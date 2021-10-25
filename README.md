@@ -32,18 +32,62 @@ RoomReservation, Room, ResourceReservation in Reservation Api
 
 ### User guid:
 
+Project run on Docker with docker compose, I created migration in efcore and when project run then the databases(IdentityDB, ReservationDB) should be created on sql data container.
 User can use any tools like Postman for using Api services.
 
 1- Should be register with this address: Post method http://localhost:5010/api/v1/identity/Register/Register
 
+example data:
+
+```
+{
+  "username": "jackuser",
+  "firstname": "Jack",
+  "lastname": "Jackie",
+  "email": "user1@gmail.com",
+  "password": "Ja@123",
+  "confirmPassword": "Ja@123"
+}
+```
+
 2- Should be login with this address: Post method http://localhost:5010/api/v1/identity/Account/Login
+
+example data:
+
+```
+{
+  "username": "jackuser",
+  "password": "Ja@123",
+  "rememberMe": true
+}
+```
 
 After login you get an access_token that you should add it in any http request header.
 
 3- Create room reservation with this address: Post method http://localhost:5010/api/v1/reservation/RoomReservation/CreateRoomReservation
 
+example data:
+
+```
+{
+    "roomid":1,
+    "startdate":"2021-10-26 16:16:32.473",
+    "enddate":"2021-10-26 16:59:32.473",
+    "location":"Amsterdam"
+}
+```
+
 4- Get rooms from Berlin and Amsterdam locations with this address: Get method http://localhost:5010/api/v1/reservation/Room/GetRooms/1
+
 
 5- Create resource room reservation with this address:  Post method http://localhost:5010/api/v1/reservation/ResourceReservation/CreateResourceReservation
 
+example data:
+
+```
+{
+    "roomReservationId":1,
+    "ResourceId":1
+}
+```
 
