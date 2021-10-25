@@ -25,7 +25,7 @@ namespace Reservation.Api.Controllers
 
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> AddRoomReservation(RoomReservationCommand cmd)
+        public async Task<IActionResult> CreateRoomReservation(RoomReservationCommand cmd)
         {
             var result = await _mediator.Send(cmd);
 

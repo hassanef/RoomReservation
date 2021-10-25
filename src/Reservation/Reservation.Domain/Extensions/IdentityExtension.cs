@@ -9,9 +9,9 @@ namespace Reservation.Domain.Extensions
 {
     public static class IdentityExtensions
     {
-        public static int GetUser(this IHttpContextAccessor contextAccessor)
+        public static int GetUserId(this IHttpContextAccessor contextAccessor)
         {
-            var userId = contextAccessor.HttpContext.User.Claims?.Where(x => x.Type == "UserId")?.Single().Value;
+            contextAccessor.HttpContext.Request.Headers.TryGetValue("userId", out Microsoft.Extensions.Primitives.StringValues userId);
 
             if (!string.IsNullOrWhiteSpace(userId))
                 return int.Parse(userId);

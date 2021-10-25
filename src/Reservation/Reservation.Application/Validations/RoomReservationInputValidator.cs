@@ -28,11 +28,11 @@ namespace Reservation.Application.Validations
               .NotEmpty()
               .MustAsync(async (model, cancellation) =>
               {
-                  var count = await roomReservationRepository.CountAsync(x => x.Id == model.RoomId &&
-                                                                        (model.StartDate < x.Period.Start && model.EndDate > x.Period.Start) ||
-                                                                        (model.StartDate > x.Period.Start && model.EndDate < x.Period.End) ||
-                                                                        (model.StartDate > x.Period.Start && model.StartDate < x.Period.End) ||
-                                                                        (model.EndDate > x.Period.Start && model.EndDate < x.Period.End));
+                  var count = await roomReservationRepository.CountAsync(x => x.RoomId == model.RoomId &&
+                                                                        (model.StartDate <= x.Period.Start && model.EndDate >= x.Period.Start) ||
+                                                                        (model.StartDate >= x.Period.Start && model.EndDate <= x.Period.End) ||
+                                                                        (model.StartDate >= x.Period.Start && model.StartDate <= x.Period.End) ||
+                                                                        (model.EndDate >= x.Period.Start && model.EndDate <= x.Period.End));
 
                   return count == 0;
               }).WithMessage("room is busy in selected date time!");

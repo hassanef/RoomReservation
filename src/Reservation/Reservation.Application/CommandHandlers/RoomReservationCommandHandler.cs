@@ -27,10 +27,10 @@ namespace Reservation.Application.CommandHandlers
             if (request == null)
                 throw new ReservationException("request CreateRoomReservationCommand is null!");
 
-            var userId = _contextAccessor.GetUser();
+            var currentUserId = _contextAccessor.GetUserId();
 
             var period = Period.Create(request.StartDate, request.EndDate, request.Location);
-            var roomReservation = new RoomReservation(request.RoomId, userId, period, request.Location);
+            var roomReservation = new RoomReservation(request.RoomId, currentUserId, period, request.Location);
 
             await _repository.CreateAsync(roomReservation);
 
