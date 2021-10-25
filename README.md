@@ -26,19 +26,24 @@ In Reservation Api, I tried to use CQRS pattern with MediatR, but just on code l
 ## Gateway 
 When a request send from client then at first it should cross from Gateway, in Gateway that request should be authenticated and authorization, for about authentication at first JWT token checked and the request send to Identity Api for authorization, if the request authorized the Gateway send request to Reservation Api, Gateway has an ocelot.json file that has configuration of upstream and downstream.
 
-* Projects services:
+### Project services:
 Accout and Register in Identity Api.
 RoomReservation, Room, ResourceReservation in Reservation Api
 
-* User guid
+### User guid:
+
 User can use any tools like Postman for using Api services.
+
 1- Should be register with this address: Post method http://localhost:5010/api/v1/identity/Register/Register
+
 2- Should be login with this address: Post method http://localhost:5010/api/v1/identity/Account/Login
 
 After login you get an access_token that you should add it in any http request header.
 
 3- Create room reservation with this address: Post method http://localhost:5010/api/v1/reservation/RoomReservation/CreateRoomReservation
+
 4- Get rooms from Berlin and Amsterdam locations with this address: Get method http://localhost:5010/api/v1/reservation/Room/GetRooms/1
+
 5- Create resource room reservation with this address:  Post method http://localhost:5010/api/v1/reservation/ResourceReservation/CreateResourceReservation
 
 
