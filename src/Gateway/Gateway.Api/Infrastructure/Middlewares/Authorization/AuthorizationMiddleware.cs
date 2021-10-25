@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Ocelot.Authorization;
 using Ocelot.Middleware;
 using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -24,10 +25,11 @@ namespace Gateway.Api.Infrastructure.Middlewares.Authorization
 
             CustomCoreOcelotAuthorizer customCoreOcelotAuthorizer = (CustomCoreOcelotAuthorizer)context.RequestServices.GetService(typeof(CustomCoreOcelotAuthorizer));
 
-
-            
-            if(customCoreOcelotAuthorizer != null)
+            if (customCoreOcelotAuthorizer != null)
                 customCoreOcelotAuthorizer.Authorize(context);
+
+            if (context.User.Identity.IsAuthenticated)
+                context.Request.Headers.Add("userId", context.GetUserId());
 
             await this.nextMiddleware.Invoke(context);
         }
