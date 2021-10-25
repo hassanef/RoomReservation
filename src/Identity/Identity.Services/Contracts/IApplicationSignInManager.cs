@@ -260,52 +260,6 @@ namespace Identity.Services.Contracts
         /// <returns>Returns a <see cref="SignInResult"/></returns>
         Task<SignInResult> SignInOrTwoFactorAsync(User user, bool isPersistent, string loginProvider = null, bool bypassTwoFactor = false);
 
-        /// <summary>
-        /// Used to determine if a user is considered locked out.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <returns>Whether a user is considered locked out.</returns>
-        Task<bool> IsLockedOut(User user);
-
-        /// <summary>
-        /// Returns a locked out SignInResult.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <returns>A locked out SignInResult</returns>
-        Task<SignInResult> LockedOut(User user);
-
-        /// <summary>
-        /// Used to ensure that a user is allowed to sign in.
-        /// </summary>
-        /// <param name="user">The user</param>
-        /// <returns>Null if the user should be allowed to sign in, otherwise the SignInResult why they should be denied.</returns>
-        Task<SignInResult> PreSignInCheck(User user);
-
-        /// <summary>
-        /// Used to reset a user's lockout count.
-        /// </summary>
-        /// <param name="user">The user</param>
-        /// <returns>The <see cref="Task"/> that represents the asynchronous operation, containing the <see cref="IdentityResult"/> of the operation.</returns>
-        Task ResetLockout(User user);
-
-        #endregion
-
-        #region CustomMethods
-
-        /// <summary>
-        /// Returns true if the current user has an identity with the application cookie identity
-        /// </summary>
-        /// <returns>True if the current user is logged in with identity.</returns>
-        bool IsCurrentUserSignedIn();
-
-        /// <summary>
-        /// Validates the security stamp for the current user against
-        /// the persisted stamp for the current user, as an asynchronous operation.
-        /// </summary>
-        /// <returns>The task object representing the asynchronous operation. The task will contain the current user
-        /// if the stamp matches the persisted value, otherwise it will return false.</returns>
-        Task<User> ValidateCurrentUserSecurityStampAsync();
-
         #endregion
     }
 }

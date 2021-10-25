@@ -212,33 +212,11 @@ namespace Identity.Services.Contracts
         #region CustomMethods
 
         IList<Role> FindUserRoles(int userId);
-
-        Task<List<Role>> GetAllCustomRolesAsync(string name);
-
-        IList<Role> GetRolesForCurrentUser();
-
-        IList<Role> GetRolesForUser(int userId);
         Task<IList<Role>> GetRolesForUsers(List<int> userIds);
-
-        IList<UserRole> GetUserRolesInRole(string roleName);
-
-        bool IsCurrentUserInRole(string roleName);
-
-        bool IsUserInRole(int userId, string roleName);
-
-        Task<Role> GetRoleById(int roleId);
-
-        Task<int> GetRoleCountAsync(Expression<Func<Role, bool>> where);
 
         Task<Role> GetRoleByName(string name);
 
         Task<IdentityResult> CreateRole(Role role);
-
-        IList<Role> FindCurrentUserRolesWithoutTenantFilter();
-        Task<int> GetRoleCount(Expression<Func<Role, bool>> where);
-
-        Task<ILookup<int, Role>> GetRolesForUsers(IEnumerable<int> userIds);
-        Task<IList<Role>> GetRolesForUser(int userId, Guid applicationId);
 
         Task<bool> Authorize(string currentClaim);
 

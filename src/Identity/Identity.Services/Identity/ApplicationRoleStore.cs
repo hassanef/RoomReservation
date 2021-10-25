@@ -8,9 +8,6 @@ using System.Security.Claims;
 
 namespace Identity.Services.Identity
 {
-    /// <summary>
-    /// More info: http://www.dotnettips.info/post/2578
-    /// </summary>
     public class ApplicationRoleStore :
         RoleStore<Role, ApplicationDbContext, int, UserRole, RoleClaim>,
         IApplicationRoleStore
@@ -27,8 +24,6 @@ namespace Identity.Services.Identity
             _describer = describer ?? throw new ArgumentNullException(nameof(_describer));
         }
 
-        #region BaseClass
-
         protected override RoleClaim CreateRoleClaim(Role role, Claim claim)
         {
             return new RoleClaim
@@ -38,8 +33,6 @@ namespace Identity.Services.Identity
                 ClaimValue = claim.Value
             };
         }
-
-        #endregion
 
     }
 }

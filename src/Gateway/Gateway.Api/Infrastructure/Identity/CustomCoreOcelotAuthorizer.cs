@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Net.Http;
+using System.Security.Authentication;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -42,7 +43,7 @@ namespace Gateway.Api.Infrastructure.Identity
                 return true;
 
             if (!context.User.Identity.IsAuthenticated)
-                throw new UnauthorizedAccessException("Unauthenticated");
+                throw new AuthenticationException("Unauthenticated");
 
             if (!string.IsNullOrEmpty(controller) || !string.IsNullOrEmpty(action))
             {

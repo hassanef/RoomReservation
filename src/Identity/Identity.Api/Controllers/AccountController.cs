@@ -50,13 +50,13 @@ namespace Identity.Api.Controllers
                 return NotFound();
             }
 
-            var result1 = await _signInManager.PasswordSignInAsync(
+            var signInResult = await _signInManager.PasswordSignInAsync(
               loginUser.Username,
               loginUser.Password,
               false,
               lockoutOnFailure: true);
 
-            if(result1.Succeeded == false)
+            if(signInResult.Succeeded == false)
             {
                 return BadRequest("error in sign in!");
             }

@@ -7,12 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Reservation.Application.Infrastructure.Middlewares;
 using Reservation.Infrastructure.Context;
 using System;
 using Ticket.Application.Infrastructure.AutofacModules;
-using Newtonsoft.Json;
-using Reservation.Application.Infrastructure.TokenConfiguration;
-using Reservation.Application.Infrastructure.Middlewares;
 
 namespace Reservation.Api
 {

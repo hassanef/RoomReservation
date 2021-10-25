@@ -17,9 +17,6 @@ using System.Threading.Tasks;
 
 namespace Identity.Services.Identity
 {
-    /// <summary>
-    /// More info: http://www.dotnettips.info/post/2578
-    /// </summary>
     public class ApplicationRoleManager :
         RoleManager<Role>,
         IApplicationRoleManager
@@ -45,20 +42,6 @@ namespace Identity.Services.Identity
         }
 
 
-
-        #region Select
-
-        public IList<Role> FindCurrentUserRoles()
-        {
-            var userId = getCurrentUserId();
-            return FindUserRoles(userId);
-        }
-        public IList<Role> FindCurrentUserRolesWithoutTenantFilter()
-        {
-            var userId = getCurrentUserId();
-            return FindUserRolesWithoutTenant(userId);
-        }
-
         public IList<Role> FindUserRoles(int userId)
         {
             var userRolesQuery = from role in Roles
@@ -67,22 +50,6 @@ namespace Identity.Services.Identity
                                  select role;
 
             return userRolesQuery.OrderBy(x => x.Name).ToList();
-        }
-        public IList<Role> FindUserRolesWithoutTenant(int userId)
-        {
-            var userRolesQuery = from role in _roles
-                                 from user in role.Users
-                                 where user.UserId == userId
-                                 select role;
-
-            return userRolesQuery.OrderBy(x => x.Name).ToList();
-        }
-
-        public async Task<List<Role>> GetAllCustomRolesAsync(string name)
-        {
-            if (!string.IsNullOrWhiteSpace(name))
-                return await _roles.Where(x => x.Name.Contains(name)).ToListAsync();
-            return await _roles.ToListAsync();
         }
 
         public async Task<IdentityResult> CreateRole(Role role)
@@ -108,32 +75,7 @@ namespace Identity.Services.Identity
                 return await _roles.Where(x => x.Name.ToLower().Trim().Contains(name.ToLower().Trim())).FirstOrDefaultAsync();
             return null;
         }
-
-        public IList<Role> GetRolesForCurrentUser()
-        {
-            var userId = getCurrentUserId();
-            return GetRolesForUser(userId);
-        }
         
-        public IList<Role> GetRolesForUser(int userId)
-        {
-            var roles = FindUserRoles(userId);
-            if (roles == null || !roles.Any())
-            {
-                return new List<Role>();
-            }
-
-            return roles.ToList();
-        }
-        public async Task<IList<Role>> GetRolesForUser(int userId, Guid applicationId)
-        {
-            var userRolesQuery = from role in _roles
-                                 from user in role.Users
-                                 where user.UserId == userId && role.ApplicationId == applicationId
-                                 select role;
-
-            return await userRolesQuery.OrderBy(x => x.Name).ToListAsync();
-        }
         public async Task<IList<Role>> GetRolesForUsers(List<int> userIds)
         {
             var userRolesQuery = from role in _roles
@@ -144,59 +86,6 @@ namespace Identity.Services.Identity
             return await userRolesQuery.OrderBy(x => x.Name).ToListAsync();
         }
 
-        public async Task<ILookup<int, Role>> GetRolesForUsers(IEnumerable<int> userIds)
-        {
-            var roles = await _roles.Include(x => x.Users).Where(x => x.Users.Any(u => userIds.Contains(u.UserId))).ToListAsync();
-
-            return roles.ToLookup(x => x.Users.First().UserId);
-        }
-
-
-        public IList<UserRole> GetUserRolesInRole(string roleName)
-        {
-            return Roles.Where(role => role.Name == roleName)
-                             .SelectMany(role => role.Users)
-                             .ToList();
-        }
-
-        public bool IsCurrentUserInRole(string roleName)
-        {
-            var userId = getCurrentUserId();
-            return IsUserInRole(userId, roleName);
-        }
-
-        public bool IsUserInRole(int userId, string roleName)
-        {
-            var userRolesQuery = from role in Roles
-                                 where role.Name == roleName
-                                 from user in role.Users
-                                 where user.UserId == userId
-                                 select role;
-            var userRole = userRolesQuery.FirstOrDefault();
-            return userRole != null;
-        }
-
-   
-        public async Task<Role> GetRoleById(int roleId)
-        {
-            return await Roles.Where(role => role.Id == roleId).SingleOrDefaultAsync();
-        }
-
-        public async Task<int> GetRoleCountAsync(Expression<Func<Role, bool>> where)
-        {
-            //Guard.ArgumentNotNull(where, nameof(where));
-
-            return await _roles.AsQueryable().AsNoTracking().CountAsync(where);
-        }
-        public async Task<int> GetRoleCount(Expression<Func<Role, bool>> where)
-        {
-            //Guard.ArgumentNotNull(where, nameof(where));
-
-            return await _roles.AsQueryable().AsNoTracking().CountAsync(where);
-        }
-
-        private int getCurrentUserId() => _contextAccessor.HttpContext.User.Identity.GetUserId<int>();
-
         public async Task<bool> Authorize(string currentClaim)
         {
             var roleId = _contextAccessor.GetRoleId();
@@ -206,9 +95,6 @@ namespace Identity.Services.Identity
 
             return result;
         }
-
-        #endregion
-
 
     }
 }

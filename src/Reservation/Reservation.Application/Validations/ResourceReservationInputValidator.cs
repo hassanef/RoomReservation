@@ -33,9 +33,10 @@ namespace Reservation.Application.Validations
                     var count = await roomReservationRepository.CountAsync(x => x.Id == roomReservationId);
 
                     return count == 1;
-                }).WithMessage("roomReservation not found!");
-
-            RuleFor(model => model)
+                }).WithMessage("roomReservation not found!")
+             .DependentRules(() =>
+              {
+                  RuleFor(model => model)
                    .NotEmpty()
                    .MustAsync(async (model, cancellation) =>
                    {
@@ -43,6 +44,7 @@ namespace Reservation.Application.Validations
 
                        return !result;
                    }).WithMessage("roomReservation has this resource!");
+              });
         }
     }
 }

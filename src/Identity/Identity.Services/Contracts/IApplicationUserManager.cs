@@ -1012,50 +1012,11 @@ namespace Identity.Services.Contracts
 
         #endregion
 
-        #region CustomMethods
-
-
-        /// <summary>
-        /// Returns the current user corresponding or null.
-        /// </summary>
-        /// <returns>Returns the current user corresponding or null.</returns>
-        User GetCurrentUser();
-
-        /// <summary>
-        /// Returns the current user corresponding or null.
-        /// </summary>
-        /// <returns>Returns the current user corresponding or null.</returns>
-        Task<User> GetCurrentUserAsync();
-
-        /// <summary>
-        /// Returns the current User ID claim value if present otherwise returns null.
-        /// </summary>
-        /// <returns>The current User ID claim value, or null if the claim is not present.</returns>
-        string GetCurrentUserId();
-
-        /// <summary>
-        /// Returns the current User ID claim value if present otherwise returns null.
-        /// </summary>
-        int? CurrentUserId { get; }
-
-        /// <summary>
-        /// Returns the current user Name claim value if present otherwise returns null.
-        /// </summary>
-        /// <returns>The current user Name claim value, or null if the claim is not present.</returns>
-        string GetCurrentUserName();
-
-        Task<bool> HasPasswordAsync(int userId);
-
         Task<User> FindByIdIncludeUserRolesAsync(int userId);
-
-        Task<IdentityResult> RemoveUserRolesAsync(int userId, IList<int> removeRoleIds);
 
         Task<IdentityResult> AddUsersRolesAsync(int userId, int roleId);
 
-        Task<int> GetUserCountAsync(Expression<Func<User, bool>> where);
-
         Task UpdateUserLastActivityDateAsync(int userId);
 
-        #endregion
     }
 }

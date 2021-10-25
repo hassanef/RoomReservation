@@ -127,8 +127,6 @@ namespace Identity.Services.Identity
 
         #endregion
 
-        #region Select
-
         public User FindById(int userId)
         {
             return _users.Find(userId);
@@ -139,52 +137,6 @@ namespace Identity.Services.Identity
             return _users.Include(x => x.Roles).FirstOrDefaultAsync(x => x.Id == userId);
         }
 
-        public async Task<List<User>> GetAllUsersAsync()
-        {
-            return await Users.ToListAsync();
-        }
-        public User GetCurrentUser()
-        {
-            if (_currentUserInScope != null)
-            {
-                return _currentUserInScope;
-            }
-
-            var currentUserId = GetCurrentUserId();
-            if (string.IsNullOrWhiteSpace(currentUserId))
-            {
-                return null;
-            }
-
-            var userId = int.Parse(currentUserId);
-            return _currentUserInScope = FindById(userId);
-        }
-
-        public async Task<User> GetCurrentUserAsync()
-        {
-            return _currentUserInScope ??
-                (_currentUserInScope = await GetUserAsync(_contextAccessor.HttpContext.User));
-        }
-
-        public string GetCurrentUserId()
-        {
-            return _contextAccessor.HttpContext.User.Identity.GetUserId();
-        }
-
-        public int? CurrentUserId
-        {
-            get
-            {
-                var userId = _contextAccessor.HttpContext.User.Identity.GetUserId();
-                if (string.IsNullOrEmpty(userId))
-                {
-                    return null;
-                }
-
-                return !int.TryParse(userId, out int result) ? (int?)null : result;
-            }
-        }
-
         IPasswordHasher<User> IApplicationUserManager.PasswordHasher { get => base.PasswordHasher; set => base.PasswordHasher = value; }
 
         IList<IUserValidator<User>> IApplicationUserManager.UserValidators => base.UserValidators;
@@ -192,131 +144,6 @@ namespace Identity.Services.Identity
         IList<IPasswordValidator<User>> IApplicationUserManager.PasswordValidators => base.PasswordValidators;
 
         IQueryable<User> IApplicationUserManager.Users => base.Users;
-
-        public string GetCurrentUserName()
-        {
-            return _contextAccessor.HttpContext.User.Identity.GetUserName();
-        }
-
-        public async Task<bool> HasPasswordAsync(int userId)
-        {
-            var user = await FindByIdAsync(userId.ToString());
-            return user?.PasswordHash != null;
-        }
-
-        public async Task<bool> HasPhoneNumberAsync(int userId)
-        {
-            var user = await FindByIdAsync(userId.ToString());
-            return user?.PhoneNumber != null;
-        }
-
-        public async Task<byte[]> GetEmailImageAsync(int? userId)
-        {
-            if (userId == null)
-                return "?".TextToImage(new TextToImageOptions());
-
-            var user = await FindByIdAsync(userId.Value.ToString());
-            if (user == null)
-                return "?".TextToImage(new TextToImageOptions());
-
-            if (!user.IsEmailPublic)
-                return "?".TextToImage(new TextToImageOptions());
-
-            return user.Email.TextToImage(new TextToImageOptions());
-        }
-
-
-        public async Task<string> GetSerialNumberAsync(int userId)
-        {
-            var user = FindById(userId);
-            return user.SerialNumber;
-        }
-
-
-        public async Task<bool> HasUserAsync(Expression<Func<User, bool>> where)
-        {
-            Guard.NotNull(where, nameof(where));
-
-            return await _users.AsQueryable().AsNoTracking().AnyAsync(where);
-        }
-        public async Task<int> GetUserCountAsync(Expression<Func<User, bool>> where)
-        {
-            Guard.NotNull(where, nameof(where));
-
-            return await _users.AsQueryable().AsNoTracking().CountAsync(where);
-        }
-
-        #endregion
-
-        #region CRUD
-
-
-        public async Task<IdentityResult> UpdateUserAndSecurityStampAsync(int userId, Action<User> action)
-        {
-            var user = await FindByIdIncludeUserRolesAsync(userId);
-            if (user == null)
-            {
-                return IdentityResult.Failed(new IdentityError
-                {
-                    Code = "UserNotFound",
-                    Description = "User not found."
-                });
-            }
-
-            action(user);
-
-            var result = await UpdateAsync(user);
-            if (!result.Succeeded)
-            {
-                return result;
-            }
-            return await UpdateSecurityStampAsync(user);
-        }
-
-        public async Task<IdentityResult> AddOrUpdateUserRolesAsync(int userId, IList<int> selectedRoleIds, Action<User> action = null)
-        {
-            var user = await FindByIdIncludeUserRolesAsync(userId);
-            if (user == null)
-            {
-                return IdentityResult.Failed(new IdentityError
-                {
-                    Code = "UserNotFound",
-                    Description = "User not found."
-                });
-            }
-
-            var currentUserRoleIds = user.Roles.Select(x => x.RoleId).ToList();
-
-            if (selectedRoleIds == null)
-            {
-                selectedRoleIds = new List<int>();
-            }
-
-            var newRolesToAdd = selectedRoleIds.Except(currentUserRoleIds).ToList();
-            foreach (var roleId in newRolesToAdd)
-            {
-                user.Roles.Add(new UserRole { RoleId = roleId, UserId = user.Id });
-            }
-
-            var removedRoles = currentUserRoleIds.Except(selectedRoleIds).ToList();
-            foreach (var roleId in removedRoles)
-            {
-                var userRole = user.Roles.SingleOrDefault(ur => ur.RoleId == roleId);
-                if (userRole != null)
-                {
-                    user.Roles.Remove(userRole);
-                }
-            }
-
-            action?.Invoke(user);
-
-            var result = await UpdateAsync(user);
-            if (!result.Succeeded)
-            {
-                return result;
-            }
-            return await UpdateSecurityStampAsync(user);
-        }
 
         Task<IdentityResult> IApplicationUserManager.UpdatePasswordHash(User user, string newPassword, bool validatePassword)
         {
@@ -400,7 +227,5 @@ namespace Identity.Services.Identity
             return IdentityResult.Success;
         }
 
-
-        #endregion
     }
 }
