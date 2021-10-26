@@ -5,7 +5,7 @@ namespace Reservation.Infrastructure.SeedData
 {
     public static class ReservationDefaultData
     {
-        public static List<Office> CreateRoomsPredefine()
+        public static List<Office> CreateOfficesRoomsPredefine()
         {
             var offices = new List<Office>();
             var amsterdamOffice = new Office("Amsterdam Office", Location.Amsterdam);

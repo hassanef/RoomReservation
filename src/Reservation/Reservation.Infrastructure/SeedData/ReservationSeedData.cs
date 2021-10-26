@@ -29,7 +29,7 @@ namespace Reservation.Infrastructure.SeedData
             {
                 if (!context.Offices.Any())
                 {
-                    context.Offices.AddRange(ReservationDefaultData.CreateRoomsPredefine());
+                    context.Offices.AddRange(ReservationDefaultData.CreateOfficesRoomsPredefine());
                     context.SaveChanges();
 
                     _logger.LogInformation("Create rooms predefine in seed data.");

@@ -22,6 +22,7 @@ namespace Reservation.Application.Queries
         public async Task<List<RoomReadModel>> GetRooms(int officeId)
         {
             return await _contextReadOnly.Rooms
+                                         .Where(x => x.OfficeId == officeId)
                                          .Include(x => x.RoomReservations)
                                          .ThenInclude(x => x.ResourceReservations)
                                          .ToListAsync();
