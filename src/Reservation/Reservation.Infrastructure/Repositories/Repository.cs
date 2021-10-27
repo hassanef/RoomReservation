@@ -27,7 +27,7 @@ namespace Reservation.Infrastructure.Repositories
         public virtual void Create(T item)
         {
             if (item == null)
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException("item object is null in create method");
 
             _dbContext.Set<T>().Add(item);
 
@@ -38,7 +38,7 @@ namespace Reservation.Infrastructure.Repositories
         public virtual async Task<T> CreateAsync(T item)
         {
             if (item == null)
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException("item object is null in CreateAsync method");
 
             await _dbContext.Set<T>().AddAsync(item);
 
@@ -50,7 +50,7 @@ namespace Reservation.Infrastructure.Repositories
         public virtual async Task<T> CreateAsyncUoW(T item)
         {
             if (item == null)
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException("item object is null in CreateAsyncUow method");
 
             await _dbContext.Set<T>().AddAsync(item);
 
@@ -61,7 +61,7 @@ namespace Reservation.Infrastructure.Repositories
         public virtual void Update(T item)
         {
             if (item == null)
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException("item object is null in Update method");
 
             _dbContext.Entry(item).State = EntityState.Modified;
 
@@ -70,7 +70,7 @@ namespace Reservation.Infrastructure.Repositories
         public virtual async Task<T> UpdateAsync(T item)
         {
             if (item == null)
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException("item object is null in UpdateAsync method");
 
             _dbContext.Entry(item).State = EntityState.Modified;
 
@@ -82,7 +82,7 @@ namespace Reservation.Infrastructure.Repositories
         public virtual T UpdateUoW(T item)
         {
             if (item == null)
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException("item object is null in UpdateUoW method");
 
             _dbContext.Set<T>().Update(item);
 
