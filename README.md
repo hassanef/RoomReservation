@@ -14,21 +14,34 @@
 * Sql Server
 * Docker Compose
 
-## Microservices
-I tried to implement this project based on Microservices, because the project can be scalable that mentioned in Dephion case document, and also use Domain Driven Design for separate domain models and bounded context,  Microservices and DDD have a lot of features and very useful when you want to implement scalable services, and also you want to implement some other services that they want to communicate with each other.
+## RoomReservationOnContainers - Microservices Architecture and Docker Containers 
+RoomReservation .NET 5.0 application, based on a simplified microservices architecture and Docker containers.
+>DISCLAIMER
+>
+>This application is a simplified microservice oriented architecture that use technologies like .NET 5.0 and Docker containers, it helps to implement scalable and autonomous application.
+The next step (still not covered in RoomReservation) after understanding Docker containers and microservices development with .NET 5.0, is to select a microservice cluster/orchestrator like Docker Swarm, Kubernetes or DC/OS (in Azure Container Service) or Azure Service Fabric which in most of the cases will require additional partial changes to application's configuration (although the present architecture should work on most orchestrators with small changes). Additional steps would be to move databases to HA cloud services.
+### Architecture overview: 
+This application is cross-platform either at the server and client side, thanks to .NET 5.0 services capable of running on Linux or Windows containers depending on your Docker host. The architecture proposes a simplified microservice oriented architecture implementation with multiple autonomous microservices (each one owning its own data/db) and implementing different approaches within each microservice (simple CRUD vs. DDD/CQRS patterns) using Http as the current communication protocol.
 
-## Description about technology
-This project consist of two Api services(RoomReservation, Identity) and a Gateway(Api Gateway).
-I use Gateway because it helps to implementation of cross cutting-concern, all request should cross from Gateway then the client doesn't know about services. in this Gateway I just implemented authentication and authorization, but other cross-cutting concern  like logging, caching etc can be implemented there.
-I implemented Identity based on Asp.net Identity with JWT token, and this is a CRUD service that doesn't need to implement base on DDD, it uses for Authentication, authorization and user management.
-In Reservation Api, I tried to use CQRS pattern with MediatR, but just on code level not on databases level, if this application has a lot of request then it's better to use two different database(write and read), and I implemented validation of requst with fluent validation that implemenrted in MedatR pipeline.
+>Important Note on Database Servers/Containers
+>
+>In this solution's current configuration for a development environment, the SQL databases are automatically deployed with sample data into a single SQL Server  (a single shared Docker container for SQL databases) so the whole solution can be up and running without any dependency to any cloud or specific server. Each database could also be deployed as a single Docker container.
+>
+>A similar case is defined in regards Redis cache running as a container for the development environment.
+>
+>However, in a real production environment it is recommended to have your databases (SQL Server and Redis, in this case) in HA (High Available) services like Azure SQL Database, Redis as a service or any other clustering system. If you want to change to a production configuration, you'll just need to change the connection strings once you have set up the servers in a HA cloud or on-premises.
 
-## Gateway 
-When a request send from client then at first it should cross from Gateway, in Gateway that request should be authenticated and authorization, for about authentication at first JWT token checked and the request send to Identity Api for authorization, if the request authorized the Gateway send request to Reservation Api, Gateway has an ocelot.json file that has configuration of upstream and downstream.
+## Overview of the application code
+In this repo you can find an application that will implement a microservice architecture based application using .NET 5.0 and Docker.
+The example business domain or scenario is based on a Reservations' application, which is implemented as a multi-container application. Each container is a microservice deployment (like the RoomReservation-microservice and Identity-microservice) which are developed using ASP.NET running on .NET 5.0 so they can run either on Linux Containers and Windows Containers.
+This application use ApiGateway using ocelot that helps to implement cross cutting-concern like authentication and authorization, but In this application doesn't implement all the cross cutting-concern, and it gives developer a good opinion about them.
+In This application will implement CQRS on code level using mediatR and different dbcontext for read and write, and also implement validation in mediatr pipeline using fluent validation.
+Repository pattern will use for communication with database layer, and it's better to use generic repository to implement CRUD and some other generic methods in a repository and use everywhere that need like in commandhandler for use-case implementation.
 
-### Project services:
-Accout and Register in Identity Api.
-RoomReservation, Room, ResourceReservation in Reservation Api
+### Identity
+Identity will implement based on asp.net Identity and JWT token, this is a CRUD application, user will register and after login get JWT access_token and the JWT token should be sent in http header of all request, authentication and authorization just check in GateWay
+
+
 
 ### User guid:
 
