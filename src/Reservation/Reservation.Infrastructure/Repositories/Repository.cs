@@ -13,10 +13,8 @@ namespace Reservation.Infrastructure.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        IRepository<T> implementation;
         protected readonly DbContext _dbContext;
         protected readonly IHttpContextAccessor _httpContextAccessor;
-        private int _tenantId;
         public Repository(DbContext dbContext, IHttpContextAccessor httpContextAccessor = null)
         {
             _dbContext = dbContext;
