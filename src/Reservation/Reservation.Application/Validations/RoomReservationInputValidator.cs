@@ -72,8 +72,8 @@ namespace Reservation.Application.Validations
                   RuleFor(x => x)
                     .Must(x =>
                     {
-                        if (x.Location == Location.Amsterdam && x.EndDate.TimeOfDay > new TimeSpan(17, 0, 0))
-                            return false;
+                        //if (x.Location == Location.Amsterdam && x.EndDate.TimeOfDay > new TimeSpan(17, 0, 0))
+                        //    return false;
                         return true;
                     }).WithMessage("EndDate can not be greather than 17:00PM in Amsterdam!");
               })
@@ -82,8 +82,8 @@ namespace Reservation.Application.Validations
                   RuleFor(model => model)
                     .Must(model =>
                     {
-                        if (model.Location == Location.Berlin && model.EndDate.TimeOfDay > new TimeSpan(20, 0, 0))
-                            return false;
+                        //if (model.Location == Location.Berlin && model.EndDate.TimeOfDay > new TimeSpan(20, 0, 0))
+                        //    return false;
                         return true;
                     }).WithMessage("EndDate can not be greather than 17:00PM in Berlin!");
               });

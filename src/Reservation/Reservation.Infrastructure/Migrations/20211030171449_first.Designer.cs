@@ -10,7 +10,7 @@ using Reservation.Infrastructure.Context;
 namespace Reservation.Infrastructure.Migrations
 {
     [DbContext(typeof(ReservationDbContext))]
-    [Migration("20211019172107_first")]
+    [Migration("20211030171449_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,47 @@ namespace Reservation.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Reservation.Domain.AggregatesModel.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("End")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("Start")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Location");
+                });
+
+            modelBuilder.Entity("Reservation.Domain.AggregatesModel.Office", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Offices");
+                });
 
             modelBuilder.Entity("Reservation.Domain.AggregatesModel.Resource", b =>
                 {
@@ -68,27 +109,6 @@ namespace Reservation.Infrastructure.Migrations
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("Reservation.Domain.AggregatesModel.RoomAggregate.Office", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Offices");
-                });
-
             modelBuilder.Entity("Reservation.Domain.AggregatesModel.RoomReservation", b =>
                 {
                     b.Property<int>("Id")
@@ -114,7 +134,7 @@ namespace Reservation.Infrastructure.Migrations
 
             modelBuilder.Entity("Reservation.Domain.AggregatesModel.Room", b =>
                 {
-                    b.HasOne("Reservation.Domain.AggregatesModel.RoomAggregate.Office", null)
+                    b.HasOne("Reservation.Domain.AggregatesModel.Office", null)
                         .WithMany("Rooms")
                         .HasForeignKey("OfficeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -219,7 +239,7 @@ namespace Reservation.Infrastructure.Migrations
                     b.Navigation("ResourceReservations");
                 });
 
-            modelBuilder.Entity("Reservation.Domain.AggregatesModel.RoomAggregate.Office", b =>
+            modelBuilder.Entity("Reservation.Domain.AggregatesModel.Office", b =>
                 {
                     b.Navigation("Rooms");
                 });

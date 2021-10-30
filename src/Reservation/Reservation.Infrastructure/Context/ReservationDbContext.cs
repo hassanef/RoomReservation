@@ -6,6 +6,8 @@ namespace Reservation.Infrastructure.Context
 {
     public class ReservationDbContext : DbContext
     {
+        public DbSet<Location> Location { get; set; }
+
         public DbSet<Office> Offices { get; set; }
         public DbSet<Resource> Resources { get; set; }
         public DbSet<Room> Rooms { get; set; }
@@ -23,6 +25,7 @@ namespace Reservation.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new RoomConfiguration());
             modelBuilder.ApplyConfiguration(new RoomReservationConfiguration());
             modelBuilder.ApplyConfiguration(new OfficeConfiguration());
+            modelBuilder.ApplyConfiguration(new LocationConfiguration());
         }
     }
 }
