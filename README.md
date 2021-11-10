@@ -45,7 +45,7 @@ Identity will implement based on asp.net Identity and JWT token, this is a CRUD 
 
 ### User guid:
 
-Project run on Docker with docker compose, I created migration in efcore, when project run then at first get sql server image, create containers, and the databases(IdentityDB, ReservationDB) should be created on sql data container.
+Project run on Docker with docker compose, migration created in efcore, when project run then at first get sql server image, next create containers, and the databases(IdentityDB, ReservationDB) should be create on sql data container.
 User can use any tools like Postman for using Api services.
 
 1- Should be register with this address: Post method http://localhost:5010/api/v1/identity/Register/Register
