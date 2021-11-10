@@ -11,26 +11,26 @@ using System.Threading.Tasks;
 
 namespace Reservation.Application.CommandHandlers
 {
-    public class RoomReservationCommandHandler : IRequestHandler<RoomReservationCommand, bool>
+    public class CreateRoomReservationCommandHandler : IRequestHandler<CreateRoomReservationCommand, bool>
     {
         private readonly IRoomReservationRepository _repository;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public RoomReservationCommandHandler(IRoomReservationRepository repository, IHttpContextAccessor contextAccessor)
+        public CreateRoomReservationCommandHandler(IRoomReservationRepository repository, IHttpContextAccessor contextAccessor)
         {
             _repository = repository;
             _contextAccessor = contextAccessor;
         }
 
-        public async Task<bool> Handle(RoomReservationCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateRoomReservationCommand request, CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new ReservationException("request CreateRoomReservationCommand is null!");
 
             var currentUserId = _contextAccessor.GetUserId();
 
-            var period = Period.Create(request.StartDate, request.EndDate, request.Location);
-            var roomReservation = new RoomReservation(request.RoomId, currentUserId, period, request.Location);
+            var period = Period.Create(request.StartDate, request.EndDate);
+            var roomReservation = new RoomReservation(request.RoomId, currentUserId, period);
 
             await _repository.CreateAsync(roomReservation);
 

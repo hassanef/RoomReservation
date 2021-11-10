@@ -22,7 +22,7 @@ namespace Ticket.Application.Infrastructure.AutofacModules
             });
 
             // Register all the Command classes (they implement IRequestHandler) in assembly holding the Commands
-            builder.RegisterAssemblyTypes(typeof(RoomReservationCommand).GetTypeInfo().Assembly)
+            builder.RegisterAssemblyTypes(typeof(CreateRoomReservationCommand).GetTypeInfo().Assembly)
                 .AsClosedTypesOf(typeof(IRequestHandler<,>));
 
             builder.RegisterAssemblyTypes(typeof(RoomReservationInputValidator).GetTypeInfo().Assembly)

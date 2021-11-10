@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Reservation.Application.CommandHandlers
 {
-    public class ResourceReservationCommandHandler : IRequestHandler<ResourceReservationCommand, bool>
+    public class CreateResourceReservationCommandHandler : IRequestHandler<CreateResourceReservationCommand, bool>
     {
         private readonly IRoomReservationRepository _repository;
 
-        public ResourceReservationCommandHandler(IRoomReservationRepository repository)
+        public CreateResourceReservationCommandHandler(IRoomReservationRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<bool> Handle(ResourceReservationCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateResourceReservationCommand request, CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new ReservationException("request CreateResourceReservationCommandHandler is null!");

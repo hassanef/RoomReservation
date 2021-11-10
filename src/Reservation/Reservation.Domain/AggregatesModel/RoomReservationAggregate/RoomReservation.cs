@@ -14,12 +14,12 @@ namespace Reservation.Domain.AggregatesModel
         public IReadOnlyCollection<ResourceReservation> ResourceReservations => _resourceReservations;
 
         protected RoomReservation() { }
-        public RoomReservation(int roomId, int userId, Period period, Location location)
+        public RoomReservation(int roomId, int userId, Period period)
         {
             RoomId = roomId;
             UserId = userId;
             ReserveDate = DateTime.Now;
-            Period = Period.Create(period.Start, period.End, location);
+            Period = Period.Create(period.Start, period.End);
             _resourceReservations = new();
         }
         public void AddResourceReservation(int resourceId)

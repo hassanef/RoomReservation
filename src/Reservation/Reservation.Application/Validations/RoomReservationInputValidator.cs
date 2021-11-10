@@ -10,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace Reservation.Application.Validations
 {
-    public class RoomReservationInputValidator : AbstractValidator<RoomReservationCommand>
+    public class RoomReservationInputValidator : AbstractValidator<CreateRoomReservationCommand>
     {
         public RoomReservationInputValidator(IRoomReservationRepository roomReservationRepository,
-                                             IOfficeRepository roomRepository)
+                                             IOfficeRepository roomRepository,
+                                             ILocationRepository locationRepository)
         {
             RuleFor(model => model.RoomId)
                .NotEmpty()
@@ -69,23 +70,14 @@ namespace Reservation.Application.Validations
               }).WithMessage("EndDate should be greather than current time!")
               .DependentRules(() =>
               {
-                  RuleFor(x => x)
-                    .Must(x =>
-                    {
-                        //if (x.Location == Location.Amsterdam && x.EndDate.TimeOfDay > new TimeSpan(17, 0, 0))
-                        //    return false;
-                        return true;
-                    }).WithMessage("EndDate can not be greather than 17:00PM in Amsterdam!");
-              })
-              .DependentRules(() =>
-              {
                   RuleFor(model => model)
-                    .Must(model =>
+                    .MustAsync(async (model, cancellation) =>
                     {
-                        //if (model.Location == Location.Berlin && model.EndDate.TimeOfDay > new TimeSpan(20, 0, 0))
-                        //    return false;
+                        var location = await locationRepository.SingleOrDefaultAsync(l => l.Id == model.LocationId);
+                        if (location.End > model.EndDate.TimeOfDay)
+                            return false;
                         return true;
-                    }).WithMessage("EndDate can not be greather than 17:00PM in Berlin!");
+                    }).WithMessage("EndDate can not be greather than valid time!");
               });
 
         }

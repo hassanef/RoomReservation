@@ -25,7 +25,7 @@ namespace Reservation.Api.Controllers
 
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreateRoomReservation(RoomReservationCommand cmd)
+        public async Task<IActionResult> CreateRoomReservation(CreateRoomReservationCommand cmd)
         {
             var result = await _mediator.Send(cmd);
 
@@ -33,6 +33,14 @@ namespace Reservation.Api.Controllers
                 return Ok();
             return BadRequest();
         }
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> DeleteRoomReservation(DeleteRoomReservationCommand cmd)
+        {
+            var result = await _mediator.Send(cmd);
 
+            if (result == true)
+                return Ok();
+            return BadRequest();
+        }
     }
 }

@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Reservation.Application.Commands
 {
-    public class ResourceReservationCommand : IRequest<bool>
+    public class DeleteRoomReservationCommand : IRequest<bool>
     {
-        public int RoomReservationId { get; init; }
-        public int ResourceId { get; init; }
+        public int Id { get; set; }
     }
 }

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Reservation.Application.Commands
 {
-    public class RoomReservationCommand : IRequest<bool>
+    public class CreateRoomReservationCommand : IRequest<bool>
     {
         public int RoomId { get; init; }
         public DateTime StartDate { get; init; }
         public DateTime EndDate { get; init; }
-        public Location Location { get; init; }
+        public int LocationId { get; init; }
     }
 }

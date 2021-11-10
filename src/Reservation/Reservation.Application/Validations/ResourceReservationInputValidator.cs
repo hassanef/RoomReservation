@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Reservation.Application.Validations
 {
-    public class ResourceReservationInputValidator : AbstractValidator<ResourceReservationCommand>
+    public class ResourceReservationInputValidator : AbstractValidator<CreateResourceReservationCommand>
     {
         public ResourceReservationInputValidator(IRoomReservationRepository roomReservationRepository,
                                                  IResourceRepository resourceRepository)
