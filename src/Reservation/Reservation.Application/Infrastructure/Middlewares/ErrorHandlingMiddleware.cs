@@ -39,7 +39,7 @@ namespace Reservation.Application.Infrastructure.Middlewares
             if (exception.GetType() == typeof(ValidationException))
             {
                 var code = HttpStatusCode.BadRequest;
-                var result = JsonConvert.SerializeObject(((ValidationException)exception).Message);
+                var result = JsonConvert.SerializeObject(((ValidationException)exception).Errors.Select(x => x.ErrorMessage));
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)code;
                 return context.Response.WriteAsync(result);
