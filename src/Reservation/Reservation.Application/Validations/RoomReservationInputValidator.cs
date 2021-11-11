@@ -68,17 +68,29 @@ namespace Reservation.Application.Validations
                       return false;
                   return true;
               }).WithMessage("EndDate should be greather than current time!")
-              .DependentRules(() =>
-              {
-                  RuleFor(model => model)
-                    .MustAsync(async (model, cancellation) =>
-                    {
-                        var location = await locationRepository.SingleOrDefaultAsync(l => l.Id == model.LocationId);
-                        if (location.End > model.EndDate.TimeOfDay)
-                            return false;
-                        return true;
-                    }).WithMessage("EndDate can not be greather than valid time!");
-              });
+                .DependentRules(() =>
+                {
+                    RuleFor(model => model)
+                      .MustAsync(async (model, cancellation) =>
+                      {
+                          var location = await locationRepository.SingleOrDefaultAsync(l => l.Id == model.LocationId);
+                          if (location == null)
+                              return false;
+                          return true;
+                      }).WithMessage("Location not exist!")
+                        .DependentRules(() =>
+                        {
+                            RuleFor(model => model)
+                              .MustAsync(async (model, cancellation) =>
+                              {
+                                  var location = await locationRepository.SingleOrDefaultAsync(l => l.Id == model.LocationId);
+                                  if (model.EndDate.TimeOfDay > location.End)
+                                      return false;
+                                  return true;
+                              }).WithMessage("EndDate can not be greather than valid time!");
+                        });
+                });
+            
 
         }
     }
