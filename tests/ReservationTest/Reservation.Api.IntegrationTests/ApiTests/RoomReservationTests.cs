@@ -26,11 +26,10 @@ namespace Reservation.Api.IntegrationTests.ApiTests
             DateTime startDate = new DateTime(nowDate.Year, nowDate.Month, nowDate.Day + 1,
                 08, 01, 0);
 
-            var postRentalRequest = new RoomReservationCommand
+            var postRentalRequest = new CreateRoomReservationCommand
             {
                 RoomId = 1,
-                UserId = 2,
-                Location = Location.Amsterdam,
+                LocationId = 1,
                 StartDate = startDate,
                 EndDate = startDate.AddHours(2)
             };
@@ -45,11 +44,10 @@ namespace Reservation.Api.IntegrationTests.ApiTests
             DateTime startDate = new DateTime(nowDate.Year, nowDate.Month, nowDate.Day + 1,
                 08, 01, 0);
 
-            var roomReservationRequest = new RoomReservationCommand
+            var roomReservationRequest = new CreateRoomReservationCommand
             {
                 RoomId = 0,
-                UserId = 2,
-                Location = Location.Amsterdam,
+                LocationId = 1,
                 StartDate = startDate,
                 EndDate = startDate.AddHours(2)
             };
@@ -64,11 +62,10 @@ namespace Reservation.Api.IntegrationTests.ApiTests
         {
             DateTime nowDate = DateTime.Now;
 
-            var roomReservationRequest = new RoomReservationCommand
+            var roomReservationRequest = new CreateRoomReservationCommand
             {
                 RoomId = 0,
-                UserId = 2,
-                Location = Location.Amsterdam,
+                LocationId = 1,
                 StartDate = DateTime.Now.AddHours(-1),
                 EndDate = DateTime.Now.AddHours(2)
             };

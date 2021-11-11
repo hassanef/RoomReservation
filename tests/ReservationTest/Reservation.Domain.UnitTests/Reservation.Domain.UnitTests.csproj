@@ -25,4 +25,8 @@
     <ProjectReference Include="..\..\..\src\Reservation\Reservation.Domain\Reservation.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AggregateTests\" />
+  </ItemGroup>
+
 </Project>
