@@ -39,7 +39,7 @@ In This application will implement CQRS on code level using mediatR and differen
 Repository pattern uses for communication with database layer, and it's better to use generic repository to implement CRUD and some other generic methods in a repository and use everywhere that need like in commandhandler for use-case implementation.
 
 ### Identity
-Identity will implement based on asp.net Identity and JWT token, this is a CRUD application, user will register and after login get JWT access_token and the JWT token should be sent in http header of all request, authentication and authorization just check in GateWay
+Identity will implement based on asp.net Identity and JWT token, this is a CRUD application, user will register and after login get JWT access_token and the JWT token should be send in header of all http requests, authentication and authorization should check in GateWay.
 
 
 
