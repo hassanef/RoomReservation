@@ -36,7 +36,7 @@ In this repo you can find an application that will implement a microservice arch
 The example business domain or scenario is based on a Reservations' application, which is implemented as a multi-container application. Each container is a microservice deployment (like the RoomReservation-microservice and Identity-microservice) which are developed using ASP.NET running on .NET 5.0 so they can run either on Linux Containers and Windows Containers.
 This application use ApiGateway using ocelot that helps to implement cross cutting-concern like authentication and authorization, but In this application doesn't implement all the cross cutting-concern, and it gives developer a good opinion about them.
 In This application will implement CQRS on code level using mediatR and different dbcontext for read and write, and also implement validation in mediatr pipeline using fluent validation.
-Repository pattern will use for communication with database layer, and it's better to use generic repository to implement CRUD and some other generic methods in a repository and use everywhere that need like in commandhandler for use-case implementation.
+Repository pattern uses for communication with database layer, and it's better to use generic repository to implement CRUD and some other generic methods in a repository and use everywhere that need like in commandhandler for use-case implementation.
 
 ### Identity
 Identity will implement based on asp.net Identity and JWT token, this is a CRUD application, user will register and after login get JWT access_token and the JWT token should be sent in http header of all request, authentication and authorization just check in GateWay
