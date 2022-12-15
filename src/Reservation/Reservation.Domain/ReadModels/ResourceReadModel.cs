@@ -5,6 +5,7 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using Reservation.Domain.AggregatesModel;
+using ResourceType = Reservation.Domain.AggregatesModel.ResourceType;
 
 namespace Reservation.Domain.ReadModels
 {
