@@ -2,7 +2,7 @@
 
 namespace Reservation.Domain.IRepositories
 {
-    public interface IRoomReservationRepository : IRepository<RoomReservation>
+    public interface IRoomReservationRepository : IRepository<AggregatesModel.RoomReservation>
     {
     }
 }

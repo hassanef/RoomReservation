@@ -19,7 +19,7 @@ namespace Reservation.Application.CommandHandlers
         public async Task<bool> Handle(DeleteRoomReservationCommand request, CancellationToken cancellationToken)
         {
             if (request == null)
-                throw new ReservationException("request is null!");
+                throw new RoomReservationException("request is null!");
 
             var roomReservation = await _repository.SingleOrDefaultAsync(x => x.Id == request.Id);
             await _repository.DeleteAsync(roomReservation);

@@ -1,7 +1,7 @@
 ﻿
-using Reservation.Domain.AggregatesModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Reservation.Domain.AggregatesModel;
 using System;
 
 namespace Reservation.Infrastructure.EntityConfiguration
@@ -19,7 +19,6 @@ namespace Reservation.Infrastructure.EntityConfiguration
                 v => (ResourceType)Enum.Parse(typeof(ResourceType), v))
               .HasColumnType("nvarchar(100)");
 
- 
         }
     }
 }

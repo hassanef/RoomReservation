@@ -19,14 +19,14 @@ namespace Reservation.Application.CommandHandlers
         public async Task<bool> Handle(CreateResourceReservationCommand request, CancellationToken cancellationToken)
         {
             if (request == null)
-                throw new ReservationException("request CreateResourceReservationCommandHandler is null!");
+                throw new RoomReservationException("request CreateResourceReservationCommandHandler is null!");
 
             var roomReservation = await _repository.SingleOrDefaultAsync(x => x.Id == request.RoomReservationId);
 
             if(roomReservation == null)
-                throw new ReservationException("request RoomReservation is null!");
+                throw new RoomReservationException("request RoomReservation is null!");
 
-            roomReservation.AddResourceReservation(request.ResourceId);
+            roomReservation.AddResourceReservation(request.ResourceId, request.ResourceType);
 
             await _repository.UpdateAsync(roomReservation);
 

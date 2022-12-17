@@ -4,12 +4,10 @@ services:
 
   sqldata:
     image: mcr.microsoft.com/mssql/server:2019-latest 
-    environment:
-            SA_PASSWORD: "Your_password123"
-            ACCEPT_EULA: "Y"
+    #environment:
+    #        SA_PASSWORD: "Your_password123"
+    #        ACCEPT_EULA: "Y"
     
-
-
   gateway.api:
     image: ${DOCKER_REGISTRY-}gatewayapi
     build:
@@ -18,10 +16,7 @@ services:
     depends_on:
             - identity.api
             - reservation.api
-
-
-    
-
+  
   identity.api:
     image: ${DOCKER_REGISTRY-}identityapi
     build:
@@ -29,7 +24,6 @@ services:
       dockerfile: src/Identity/Identity.Api/Dockerfile
     depends_on:
       - sqldata
-
 
   reservation.api:
     image: ${DOCKER_REGISTRY-}reservationapi

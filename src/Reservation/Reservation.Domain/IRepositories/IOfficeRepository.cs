@@ -1,4 +1,4 @@
-﻿using Reservation.Domain.AggregatesModel;
+﻿using Reservation.Domain.AggregatesModel.OfficeAggregate;
 
 namespace Reservation.Domain.IRepositories
 {

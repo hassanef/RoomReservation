@@ -1,5 +1,4 @@
-﻿using Reservation.Domain.AggregatesModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Reservation.Domain.ReadModels
 {
-    public class OfficeReadModel
+    public class LocationDto
     {
-        public int Id { get; set; }
         public string Title { get; set; }
-        public Location Location { get; set; }
+        public TimeSpan Start { get; set; }
+        public TimeSpan End { get; set; }
     }
 }

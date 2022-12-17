@@ -20,12 +20,12 @@ namespace Reservation.Infrastructure.SeedData
             var amsterdamOffice = new Office("Amsterdam Office", 1);
             var berlinOffice = new Office("Berlin Office", 2);
 
-            amsterdamOffice.AddOffice("Room100", 8, false);
-            amsterdamOffice.AddOffice("Room300", 15, true);
-            amsterdamOffice.AddOffice("Room400", 30, true);
-            amsterdamOffice.AddOffice("Room500", 11, true);
-            berlinOffice.AddOffice("Room200", 7, true);
-            berlinOffice.AddOffice("Room300", 13, false);
+            amsterdamOffice.AddRoom("Room100", 8, false, ResourceType.Fixed);
+            amsterdamOffice.AddRoom("Room300", 15, true, ResourceType.Fixed);
+            amsterdamOffice.AddRoom("Room400", 30, true, ResourceType.Fixed);
+            amsterdamOffice.AddRoom("Room500", 11, true, ResourceType.Fixed);
+            berlinOffice.AddRoom("Room200", 7, true, ResourceType.Fixed);
+            berlinOffice.AddRoom("Room300", 13, false, ResourceType.Fixed);
 
             offices.Add(amsterdamOffice);
             offices.Add(berlinOffice);

@@ -1,4 +1,5 @@
-﻿using Reservation.Domain.Seedwork;
+﻿using Reservation.Domain.AggregatesModel.OfficeAggregate;
+using Reservation.Domain.Seedwork;
 using System.Collections.Generic;
 
 namespace Reservation.Domain.AggregatesModel
@@ -17,9 +18,9 @@ namespace Reservation.Domain.AggregatesModel
             LocationId = locationId;
             _rooms = new();
         }
-        public void AddOffice(string title, byte personCapacity, bool hasChair)
+        public void AddRoom(string title, byte capacity, bool hasChair, ResourceType resourceType)
         {
-            _rooms.Add(new Room(title, personCapacity, hasChair));
+            _rooms.Add(Room.CreateRoom(title, capacity, hasChair, resourceType));
         }
     }
 }

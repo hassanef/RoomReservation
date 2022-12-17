@@ -19,7 +19,7 @@ namespace Reservation.Application.Queries
         {
             _contextReadOnly = contextReadOnly;
         }
-        public async Task<List<RoomReadModel>> GetRooms(int officeId)
+        public async Task<List<RoomDto>> GetRooms(int officeId)
         {
             return await _contextReadOnly.Rooms
                                          .Where(x => x.OfficeId == officeId)

@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Reservation.Domain.AggregatesModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Reservation.Domain.AggregatesModel.OfficeAggregate;
 
 namespace Reservation.Infrastructure.EntityConfiguration
 {
@@ -29,6 +25,7 @@ namespace Reservation.Infrastructure.EntityConfiguration
                     .IsRequired()
                     .HasForeignKey(x => x.ResourceId);
             });
+
 
             roomReservationConfiguration.HasOne<Room>()
               .WithMany()

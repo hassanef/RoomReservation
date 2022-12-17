@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Reservation.Domain.AggregatesModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Reservation.Application.Commands
     {
         public int RoomReservationId { get; init; }
         public int ResourceId { get; init; }
+        public ResourceType ResourceType { get; set; }
     }
 }

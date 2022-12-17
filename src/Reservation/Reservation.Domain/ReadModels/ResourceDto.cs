@@ -9,7 +9,7 @@ using ResourceType = Reservation.Domain.AggregatesModel.ResourceType;
 
 namespace Reservation.Domain.ReadModels
 {
-    public class ResourceReadModel
+    public class ResourceDto
     {
         public int Id { get; set; }
 

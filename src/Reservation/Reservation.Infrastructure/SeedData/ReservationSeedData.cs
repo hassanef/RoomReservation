@@ -34,19 +34,19 @@ namespace Reservation.Infrastructure.SeedData
 
                     _logger.LogInformation("Create rooms predefine in seed data.");
                 }
-                if (!context.Offices.Any())
-                {
-                    context.Offices.AddRange(ReservationDefaultData.CreateOfficesRoomsPredefine());
-                    context.SaveChanges();
-
-                    _logger.LogInformation("Create rooms predefine in seed data.");
-                }
                 if (!context.Resources.Any())
                 {
                     context.Resources.AddRange(ReservationDefaultData.CreateResourcesPredefine());
                     context.SaveChanges();
 
                     _logger.LogInformation("Create resources predefine in seed data.");
+                }
+                if (!context.Offices.Any())
+                {
+                    context.Offices.AddRange(ReservationDefaultData.CreateOfficesRoomsPredefine());
+                    context.SaveChanges();
+
+                    _logger.LogInformation("Create rooms predefine in seed data.");
                 }
             });
         }

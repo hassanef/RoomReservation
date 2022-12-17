@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Reservation.Domain.AggregatesModel;
+using Reservation.Domain.AggregatesModel.OfficeAggregate;
 using Reservation.Domain.IRepositories;
 using Reservation.Infrastructure.Context;
 using System;

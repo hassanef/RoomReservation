@@ -1,10 +1,11 @@
-﻿using Reservation.Domain.Seedwork;
+﻿using Reservation.Domain.Exceptions;
+using Reservation.Domain.Seedwork;
 using System;
 using System.Collections.Generic;
 
 namespace Reservation.Domain.AggregatesModel
 {
-    public class RoomReservation : Entity, IAggregateRoot
+    public class RoomReservation :Entity, IAggregateRoot
     {
         public int RoomId { get; private set; }
         public int UserId { get; private set; }
@@ -14,17 +15,32 @@ namespace Reservation.Domain.AggregatesModel
         public IReadOnlyCollection<ResourceReservation> ResourceReservations => _resourceReservations;
 
         protected RoomReservation() { }
-        public RoomReservation(int roomId, int userId, Period period)
+        private RoomReservation(int userId, int roomId, DateTime startDate, DateTime endDate)
         {
-            RoomId = roomId;
             UserId = userId;
+            RoomId = roomId;
             ReserveDate = DateTime.Now;
-            Period = Period.Create(period.Start, period.End);
+            Period = Period.Create(startDate, endDate);
             _resourceReservations = new();
         }
-        public void AddResourceReservation(int resourceId)
+        public static RoomReservation Create(int userId, int roomId, DateTime startDate, DateTime endDate, TimeSpan openOfficeTime, TimeSpan CloseOfficeTime)
         {
-            _resourceReservations.Add(new ResourceReservation(resourceId));
+            if (startDate < DateTime.Now || endDate < DateTime.Now)
+                throw new RoomReservationException("startDate couldnt be in the past!");
+            if (startDate.TimeOfDay < new TimeSpan(08, 0, 0))
+                throw new RoomReservationException("startDate must be after 08:00 oclock!");
+            if (endDate.TimeOfDay > new TimeSpan(17, 0, 0) && CloseOfficeTime <= new TimeSpan(17, 0, 0))
+                throw new RoomReservationException("endDate could not be greather than 17:00 in Amesterdam!");
+            if (endDate.TimeOfDay > new TimeSpan(17, 0, 0) && CloseOfficeTime <= new TimeSpan(20, 0, 0))
+                throw new RoomReservationException("endDate could not be greather than 20:00 in Berlin!");
+          
+            var roomReservation = new RoomReservation(userId, roomId, startDate, endDate);
+            return roomReservation;
         }
+        public void AddResourceReservation(int resourceId, ResourceType resourceType)
+        {
+            _resourceReservations.Add(ResourceReservation.Create(resourceId, resourceType));
+        }
+      
     }
 }

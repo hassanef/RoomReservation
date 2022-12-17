@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Reservation.Domain.AggregatesModel;
+using Reservation.Domain.AggregatesModel.OfficeAggregate;
 using Reservation.Infrastructure.EntityConfiguration;
 
 namespace Reservation.Infrastructure.Context
@@ -11,7 +12,7 @@ namespace Reservation.Infrastructure.Context
         public DbSet<Office> Offices { get; set; }
         public DbSet<Resource> Resources { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<RoomResource> RoomResources { get; set; }
+        //public DbSet<RoomResource> RoomResources { get; set; }
         public DbSet<RoomReservation> RoomReservations { get; set; }
         public DbSet<ResourceReservation> ResourceReservations { get; set; }
 

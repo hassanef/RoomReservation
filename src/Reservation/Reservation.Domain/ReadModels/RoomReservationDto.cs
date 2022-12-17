@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Reservation.Domain.ReadModels
 {
-    public class RoomReservationReadModel 
+    public class RoomReservationDto 
     {
         public int Id { get; set; }
         public int RoomId { get; set; }
@@ -12,7 +12,7 @@ namespace Reservation.Domain.ReadModels
         public DateTime ReserveDate { get; set; }
         public DateTime Period_Start{ get; set; }
         public DateTime Period_End { get; set; }
-        public virtual ICollection<ResourceReservationReadModel> ResourceReservations { get; set; }
-        public virtual RoomReadModel Room { get; set; }
+        public virtual ICollection<ResourceReservationDto> ResourceReservations { get; set; }
+        public virtual RoomDto Room { get; set; }
     }
 }

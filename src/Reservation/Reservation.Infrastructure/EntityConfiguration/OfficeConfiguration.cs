@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Reservation.Domain.AggregatesModel;
-using System;
 
 namespace Reservation.Infrastructure.EntityConfiguration
 {
@@ -13,9 +12,11 @@ namespace Reservation.Infrastructure.EntityConfiguration
             resourceConfiguration.Property(r => r.Id).ValueGeneratedOnAdd();
 
             resourceConfiguration.Property(r => r.Title).IsRequired().HasMaxLength(200);
-            resourceConfiguration.Property(r => r.LocationId).IsRequired();
 
-
+            resourceConfiguration.HasOne<Location>()
+             .WithMany()
+             .IsRequired()
+             .HasForeignKey(x => x.LocationId);
         }
     }
 }

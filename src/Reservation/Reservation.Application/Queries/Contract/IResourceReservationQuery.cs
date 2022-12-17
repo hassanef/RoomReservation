@@ -6,6 +6,6 @@ namespace Reservation.Application.Queries.Contract
 {
     public interface IResourceReservationQuery
     {
-        Task<List<ResourceReservationReadModel>> GetResourceReservations();
+        Task<List<ResourceReservationDto>> GetResourceReservations();
     }
 }

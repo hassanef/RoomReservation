@@ -9,6 +9,6 @@ namespace Reservation.Application.Queries.Contract
 {
     public interface IRoomQuery
     {
-        Task<List<RoomReadModel>> GetRooms(int officeId);
+        Task<List<RoomDto>> GetRooms(int officeId);
     }
 }

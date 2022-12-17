@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Reservation.Domain.Exceptions
 {
-    public class ReservationException : Exception
+    public class RoomReservationException : Exception
     {
-        public ReservationException()
+        public RoomReservationException()
         { }
 
-        public ReservationException(string message)
+        public RoomReservationException(string message)
             : base(message)
         { }
 
-        public ReservationException(string message, Exception innerException)
+        public RoomReservationException(string message, Exception innerException)
             : base(message, innerException)
         { }
     }

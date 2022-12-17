@@ -18,7 +18,7 @@ namespace Reservation.Application.Queries
         {
             _contextReadOnly = contextReadOnly;
         }
-        public async Task<List<ResourceReservationReadModel>> GetResourceReservations()
+        public async Task<List<ResourceReservationDto>> GetResourceReservations()
         {
             return await _contextReadOnly.ResourceReservations.Include(x => x.RoomReservation).ToListAsync();
         }

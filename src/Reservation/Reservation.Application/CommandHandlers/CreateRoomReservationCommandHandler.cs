@@ -14,23 +14,27 @@ namespace Reservation.Application.CommandHandlers
     public class CreateRoomReservationCommandHandler : IRequestHandler<CreateRoomReservationCommand, bool>
     {
         private readonly IRoomReservationRepository _repository;
+        private readonly ILocationRepository _locationRepository;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public CreateRoomReservationCommandHandler(IRoomReservationRepository repository, IHttpContextAccessor contextAccessor)
+        public CreateRoomReservationCommandHandler(IRoomReservationRepository repository, 
+                                                    ILocationRepository locationRepository, 
+                                                    IHttpContextAccessor contextAccessor)
         {
             _repository = repository;
             _contextAccessor = contextAccessor;
+            _locationRepository = locationRepository;
         }
 
         public async Task<bool> Handle(CreateRoomReservationCommand request, CancellationToken cancellationToken)
         {
             if (request == null)
-                throw new ReservationException("request CreateRoomReservationCommand is null!");
-
+                throw new RoomReservationException("request CreateRoomReservationCommand is null!");
+            var location = await _locationRepository.FirstOrDefaultAsync(x => x.Id == request.LocationId);    
             var currentUserId = _contextAccessor.GetUserId();
 
             var period = Period.Create(request.StartDate, request.EndDate);
-            var roomReservation = new RoomReservation(request.RoomId, currentUserId, period);
+            var roomReservation = RoomReservation.Create(currentUserId, request.RoomId, period.Start, period.End, location.Start, location.End);
 
             await _repository.CreateAsync(roomReservation);
 
