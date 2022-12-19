@@ -33,8 +33,7 @@ namespace Reservation.Application.CommandHandlers
             var location = await _locationRepository.FirstOrDefaultAsync(x => x.Id == request.LocationId);    
             var currentUserId = _contextAccessor.GetUserId();
 
-            var period = Period.Create(request.StartDate, request.EndDate);
-            var roomReservation = RoomReservation.Create(currentUserId, request.RoomId, period.Start, period.End, location.Start, location.End);
+            var roomReservation = new RoomReservation(currentUserId, request.RoomId, request.StartDate, request.EndDate, location.Start, location.End);
 
             await _repository.CreateAsync(roomReservation);
 
