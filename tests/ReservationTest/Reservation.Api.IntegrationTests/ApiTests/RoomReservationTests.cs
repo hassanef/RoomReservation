@@ -24,8 +24,7 @@ namespace Reservation.Api.IntegrationTests.ApiTests
         public async Task GivenRequest_WithInvalidRoomId_WhenPostRoomReservationCommand_ThenReturn400()
         {
             DateTime nowDate = DateTime.Now;
-            DateTime startDate = new DateTime(nowDate.Year, nowDate.Month, nowDate.Day + 1,
-                08, 01, 0);
+            DateTime startDate = new DateTime(nowDate.Year, nowDate.Month, nowDate.Day + 1, 08, 01, 0);
 
             var roomReservationRequest = new CreateRoomReservationCommand
             {

@@ -26,19 +26,5 @@ namespace Reservation.Domain.UnitTests.AggregateTests
             act.Should().Throw<RoomReservationException>()
                 .WithMessage("resource type is not valid!"); 
         }
-
-       
-        //private List<AggregatesModel.Reservation> GetRoomReservations()
-        //{
-        //    var reservations = new List<AggregatesModel.Reservation>();
-
-        //    var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
-        //    var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 13, 0, 0);
-
-        //    var reservation = new AggregatesModel.Reservation(1, Period.Create(startDate, endDate));
-        //    reservations.Add(reservation);
-
-        //    return reservations;
-        //}
     }
 }

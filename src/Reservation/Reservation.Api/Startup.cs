@@ -33,9 +33,9 @@ namespace Reservation.Api
                 opt.UseSqlServer(Configuration.GetConnectionString("ReservationConnection"));
             });
 
-            //services.AddEntityFrameworkSqlServer()
-            //        .AddDbContext<ReservationDbContextReadOnly>(options =>
-            //          options.UseSqlServer(Configuration.GetConnectionString("ReservationConnection")));
+            services.AddEntityFrameworkSqlServer()
+                    .AddDbContext<ReservationDbContextReadOnly>(options =>
+                      options.UseSqlServer(Configuration.GetConnectionString("ReservationConnection")));
 
             services.AddControllers()
                         .AddNewtonsoftJson(options =>
