@@ -41,7 +41,7 @@ namespace Reservation.Domain.UnitTests.AggregateTests
                 .WithMessage("startDate must be after Open Office time!");
         }
         [Fact]
-        public void Reserved_Room_After_Closed_Office_In_Amsterdam_Raised_An_Exception()
+        public void Can_Not_Reserved_Room_After_Closed_Office_Time_In_Amsterdam()
         {
             var startDate = DateTime.Today.AddDays(1).AddHours(16);
             var endDate = DateTime.Today.AddDays(1).AddHours(17).AddMinutes(05);
@@ -51,10 +51,10 @@ namespace Reservation.Domain.UnitTests.AggregateTests
             Action act = () => Period.Create(startDate, endDate, openAmsterdamTime, closeAmsterdamTime);
 
             act.Should().Throw<RoomReservationException>()
-              .WithMessage("endDate could not be greather than 17:00 in Amesterdam!");
+              .WithMessage("endDate must be before close Office time!");
         }
         [Fact]
-        public void Reserved_Room_After_Closed_Office_In_Berlin_Raised_An_Exception()
+        public void Can_Not_Reserved_Room_After_Closed_Office_Time_In_Berlin()
         {
             var startDate = DateTime.Today.AddDays(1).AddHours(19);
             var endDate = DateTime.Today.AddDays(1).AddHours(20).AddMinutes(01);
@@ -64,7 +64,7 @@ namespace Reservation.Domain.UnitTests.AggregateTests
             Action act = () => Period.Create(startDate.AddDays(1), endDate.AddDays(1), openBerlinTime, closeBerlinTime);
 
             act.Should().Throw<RoomReservationException>()
-             .WithMessage("endDate could not be greather than 20:00 in Berlin!");
+             .WithMessage("endDate must be before close Office time!");
         }
     }
 }

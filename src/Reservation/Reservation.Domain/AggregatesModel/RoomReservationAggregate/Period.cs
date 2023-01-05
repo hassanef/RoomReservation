@@ -19,10 +19,8 @@ namespace Reservation.Domain.AggregatesModel
                 throw new RoomReservationException("startDate couldnt be in the past!");
             if (startDate.TimeOfDay < openOfficeTime)
                 throw new RoomReservationException("startDate must be after Open Office time!");
-            if (endDate.TimeOfDay > new TimeSpan(17, 0, 0) && closeOfficeTime <= new TimeSpan(17, 0, 0))
-                throw new RoomReservationException("endDate could not be greather than 17:00 in Amesterdam!");
-            if (endDate.TimeOfDay > new TimeSpan(17, 0, 0) && closeOfficeTime <= new TimeSpan(20, 0, 0))
-                throw new RoomReservationException("endDate could not be greather than 20:00 in Berlin!");
+            if (endDate.TimeOfDay > closeOfficeTime)
+                throw new RoomReservationException("endDate must be before close Office time!");
 
             var period = new Period(startDate, endDate);
             return period;

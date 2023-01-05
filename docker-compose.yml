@@ -4,9 +4,6 @@ services:
 
   sqldata:
     image: mcr.microsoft.com/mssql/server:2019-latest 
-    #environment:
-    #        SA_PASSWORD: "Your_password123"
-    #        ACCEPT_EULA: "Y"
     
   gateway.api:
     image: ${DOCKER_REGISTRY-}gatewayapi

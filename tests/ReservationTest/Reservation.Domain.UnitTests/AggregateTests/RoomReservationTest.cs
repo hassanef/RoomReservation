@@ -11,7 +11,7 @@ namespace Reservation.Domain.UnitTests.RoomReservationTests
     public class RoomReservationTest
     {
         [Fact]
-        public void Created_Reservation_IS_Not_Null()
+        public void Created_Reservation_In_Valid_Time_Is_Not_Null()
         {
             var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 9, 0, 0);
             var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 11, 0, 0);
