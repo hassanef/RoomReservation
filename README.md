@@ -86,7 +86,7 @@ example data:
     "roomid":1,
     "startdate":"2021-10-26 16:16:32.473",
     "enddate":"2021-10-26 16:59:32.473",
-    "location":"Amsterdam"
+    "locationId":1
 }
 ```
 
