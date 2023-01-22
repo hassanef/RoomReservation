@@ -1,12 +1,7 @@
 ﻿using FluentValidation;
 using Reservation.Application.Commands;
-using Reservation.Domain.AggregatesModel;
 using Reservation.Domain.IRepositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reservation.Application.Validations
 {
@@ -24,22 +19,22 @@ namespace Reservation.Application.Validations
 
                    return count == 1;
                }).WithMessage("room not found!")
-                 .DependentRules(() =>
-                 {
-                     RuleFor(model => model)
-                         .NotEmpty()
-                         .MustAsync(async (model, cancellation) =>
-                         {
-                             var count = await roomReservationRepository.CountAsync(x => x.RoomId == model.RoomId &&
-                                                                                   (model.StartDate <= x.Period.Start && model.EndDate >= x.Period.Start) ||
-                                                                                   (model.StartDate >= x.Period.Start && model.EndDate <= x.Period.End) ||
-                                                                                   (model.StartDate >= x.Period.Start && model.StartDate <= x.Period.End) ||
-                                                                                   (model.EndDate >= x.Period.Start && model.EndDate <= x.Period.End));
+                .DependentRules(() =>
+                {
+                    RuleFor(model => model)
+                        .NotEmpty()
+                        .MustAsync(async (model, cancellation) =>
+                        {
+                            var count = await roomReservationRepository.CountAsync(x => x.RoomId == model.RoomId &&
+                                                                                  (model.StartDate <= x.Period.Start && model.EndDate >= x.Period.Start) ||
+                                                                                  (model.StartDate >= x.Period.Start && model.EndDate <= x.Period.End) ||
+                                                                                  (model.StartDate >= x.Period.Start && model.StartDate <= x.Period.End) ||
+                                                                                  (model.EndDate >= x.Period.Start && model.EndDate <= x.Period.End));
 
-                             return count == 0;
-                         }).WithMessage("room is busy in selected date time!");
+                            return count == 0;
+                        }).WithMessage("room is busy in selected date time!");
 
-                 });
+                });
 
             RuleFor(model => model.StartDate)
                .Must(startDate =>
@@ -90,7 +85,7 @@ namespace Reservation.Application.Validations
                               }).WithMessage("EndDate can not be greather than valid time!");
                         });
                 });
-            
+
 
         }
     }
