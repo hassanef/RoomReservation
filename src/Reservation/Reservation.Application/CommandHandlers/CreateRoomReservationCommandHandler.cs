@@ -30,7 +30,11 @@ namespace Reservation.Application.CommandHandlers
         {
             if (request == null)
                 throw new RoomReservationException("request CreateRoomReservationCommand is null!");
-            var location = await _locationRepository.FirstOrDefaultAsync(x => x.Id == request.LocationId);    
+
+            var location = await _locationRepository.FirstOrDefaultAsync(x => x.Id == request.LocationId);
+            if (location == null)
+                throw new RoomReservationException("location is null!");
+
             var currentUserId = _contextAccessor.GetUserId();
 
             var period = Period.Create(request.StartDate, request.EndDate, location.Start, location.End);

@@ -2,10 +2,7 @@
 using Reservation.Application.Queries.Contract;
 using Reservation.Domain.ReadModels;
 using Reservation.Infrastructure.Context;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Reservation.Application.Queries
