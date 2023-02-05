@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Reservation.Application.Queries;
 using Reservation.Application.Queries.Contract;
 using Reservation.Domain.IRepositories;
+using Reservation.Domain.Utils;
 using Reservation.Infrastructure.Context;
 using Reservation.Infrastructure.Repositories;
 using Reservation.Infrastructure.SeedData;
@@ -22,9 +23,9 @@ namespace Ticket.Application.Infrastructure.AutofacModules
             builder.RegisterType<ResourceReservationQuery>().As<IResourceReservationQuery>().InstancePerLifetimeScope();
             builder.RegisterType<RoomQuery>().As<IRoomQuery>().InstancePerLifetimeScope();
             builder.RegisterType<LocationRepository>().As<ILocationRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<SystemClock>().As<IClock>().InstancePerLifetimeScope();
 
             builder.RegisterType<ReservationDbContextReadOnly>().InstancePerLifetimeScope();
-
         }
     }
 }

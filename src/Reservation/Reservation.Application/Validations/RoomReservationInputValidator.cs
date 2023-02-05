@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Reservation.Application.Commands;
 using Reservation.Domain.IRepositories;
+using Reservation.Domain.Utils;
 using System;
 
 namespace Reservation.Application.Validations
@@ -9,7 +10,8 @@ namespace Reservation.Application.Validations
     {
         public RoomReservationInputValidator(IRoomReservationRepository roomReservationRepository,
                                              IOfficeRepository roomRepository,
-                                             ILocationRepository locationRepository)
+                                             ILocationRepository locationRepository,
+                                             IClock clock)
         {
             RuleFor(model => model.RoomId)
                .NotEmpty()
@@ -39,7 +41,7 @@ namespace Reservation.Application.Validations
             RuleFor(model => model.StartDate)
                .Must(startDate =>
                {
-                   if (startDate <= DateTime.Now)
+                   if (startDate <= clock.Now())
                        return false;
                    if (startDate.TimeOfDay < new TimeSpan(08, 0, 0))
                        return false;
@@ -59,7 +61,7 @@ namespace Reservation.Application.Validations
             RuleFor(model => model.EndDate)
               .Must(endDate =>
               {
-                  if (endDate <= DateTime.Now)
+                  if (endDate <= clock.Now())
                       return false;
                   return true;
               }).WithMessage("EndDate should be greather than current time!")

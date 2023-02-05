@@ -1,4 +1,5 @@
 ﻿using Reservation.Domain.Exceptions;
+using Reservation.Domain.Utils;
 using System;
 
 namespace Reservation.Domain.AggregatesModel
@@ -13,9 +14,9 @@ namespace Reservation.Domain.AggregatesModel
             Start = start;
             End = end;
         }
-        public static Period Create(DateTime startDate, DateTime endDate, TimeSpan openOfficeTime, TimeSpan closeOfficeTime)
+        public static Period Create(DateTime startDate, DateTime endDate, TimeSpan openOfficeTime, TimeSpan closeOfficeTime, IClock clock)
         {
-            if (startDate < DateTime.Now || endDate < DateTime.Now)
+            if (startDate < clock.Now() || endDate < clock.Now())
                 throw new RoomReservationException("startDate couldnt be in the past!");
             if (startDate.TimeOfDay < openOfficeTime)
                 throw new RoomReservationException("startDate must be after Open Office time!");

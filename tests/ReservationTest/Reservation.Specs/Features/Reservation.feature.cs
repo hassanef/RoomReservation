@@ -19,7 +19,7 @@ namespace Reservation.Specs.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class ReservationFeature : object, Xunit.IClassFixture<ReservationFeature.FixtureData>, System.IDisposable
+    public partial class RoomReservationFeature : object, Xunit.IClassFixture<RoomReservationFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -31,7 +31,7 @@ namespace Reservation.Specs.Features
 #line 1 "Reservation.feature"
 #line hidden
         
-        public ReservationFeature(ReservationFeature.FixtureData fixtureData, Reservation_Specs_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public RoomReservationFeature(RoomReservationFeature.FixtureData fixtureData, Reservation_Specs_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,7 @@ namespace Reservation.Specs.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Reservation", "Reserved a room in free time of the room with specific date times", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Room Reservation", "when a room is free in selected date times, then a user can be reserved the room", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,16 +80,16 @@ namespace Reservation.Specs.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="1 reserved room in free times")]
-        [Xunit.TraitAttribute("FeatureTitle", "Reservation")]
-        [Xunit.TraitAttribute("Description", "1 reserved room in free times")]
+        [Xunit.SkippableFactAttribute(DisplayName="2 reserved room in free times")]
+        [Xunit.TraitAttribute("FeatureTitle", "Room Reservation")]
+        [Xunit.TraitAttribute("Description", "2 reserved room in free times")]
         [Xunit.TraitAttribute("Category", "mytag")]
-        public void _1ReservedRoomInFreeTimes()
+        public void _2ReservedRoomInFreeTimes()
         {
             string[] tagsOfScenario = new string[] {
                     "mytag"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1 reserved room in free times", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("2 reserved room in free times", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -116,14 +116,14 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="2 reserved room in busy times")]
-        [Xunit.TraitAttribute("FeatureTitle", "Reservation")]
-        [Xunit.TraitAttribute("Description", "2 reserved room in busy times")]
-        public void _2ReservedRoomInBusyTimes()
+        [Xunit.SkippableFactAttribute(DisplayName="1 reserved room in busy times")]
+        [Xunit.TraitAttribute("FeatureTitle", "Room Reservation")]
+        [Xunit.TraitAttribute("Description", "1 reserved room in busy times")]
+        public void _1ReservedRoomInBusyTimes()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("2 reserved room in busy times", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1 reserved room in busy times", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 11
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -157,12 +157,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                ReservationFeature.FeatureSetup();
+                RoomReservationFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                ReservationFeature.FeatureTearDown();
+                RoomReservationFeature.FeatureTearDown();
             }
         }
     }
