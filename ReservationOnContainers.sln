@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.Api", "src\Gateway\
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8A667FEC-FA63-4EB7-A152-3D19786ADC2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reservation.Specs", "..\Reservation.Specs\Reservation.Specs.csproj", "{1C7938E1-521E-4194-B9FD-E1D089A6F9E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reservation.Specs", "tests\ReservationTest\Reservation.Specs\Reservation.Specs.csproj", "{1C7938E1-521E-4194-B9FD-E1D089A6F9E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
