@@ -17,7 +17,7 @@ namespace Reservation.Domain.UnitTests.AggregateTests
         }
       
         [Fact]
-        public void Reserved_Speciefic_Room_In_Free_Datetime1()
+        public void Reserved_Speciefic_Room_In_Free_Datetime()
         {
             var startDate = "2020-01-06 10:30:00";
             var endDate = "2020-01-06 11:30:00";
