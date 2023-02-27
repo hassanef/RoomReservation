@@ -218,6 +218,17 @@ namespace Reservation.Infrastructure.Repositories
         {
             return predicate == null ? await _dbContext.Set<T>().CountAsync() : await _dbContext.Set<T>().CountAsync(predicate);
         }
-
+        public async Task BeginTran()
+        {
+            await _dbContext.Database.BeginTransactionAsync();
+        }
+        public async Task CommitTran()
+        {
+            await _dbContext.Database.CommitTransactionAsync();
+        }
+        public async Task RollBack()
+        {
+            await _dbContext.Database.RollbackTransactionAsync();
+        }
     }
 }

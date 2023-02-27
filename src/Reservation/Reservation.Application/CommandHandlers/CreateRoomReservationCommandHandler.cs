@@ -51,7 +51,7 @@ namespace Reservation.Application.CommandHandlers
 
             using (var transaction = _reservationDbContext.Database.BeginTransaction())
             {
-                await _reservationDbContext.AddAsync(roomReservation);
+                await _reservationDbContext.AddAsync(roomReservation, cancellationToken);
                 await _reservationDbContext.SaveChangesAsync(cancellationToken);
 
                 transaction.Rollback();
