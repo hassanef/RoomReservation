@@ -49,20 +49,8 @@ namespace Reservation.Application.CommandHandlers
             var period = Period.Create(request.StartDate, request.EndDate, location.Start, location.End, _clock);
             var roomReservation = new RoomReservation(currentUserId, request.RoomId, period);
 
-            using (var transaction = _reservationDbContext.Database.BeginTransaction())
-            {
-                await _reservationDbContext.AddAsync(roomReservation, cancellationToken);
-                await _reservationDbContext.SaveChangesAsync(cancellationToken);
+            await _repository.CreateAsync(roomReservation);
 
-                transaction.Rollback();
-            }
-            using var tra = _reservationDbContext.Database.BeginTransactionAsync();
-            //await _reservationDbContext.Database.BeginTransactionAsync();
-
-            //await _repository.CreateAsync(roomReservation);
-
-
-            //await tra.();
             return true;
         }
     }
