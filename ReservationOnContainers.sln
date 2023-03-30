@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{75325879-3612-41DF-AD1D-90092A93D951}"
 EndProject
@@ -42,6 +42,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{97F02C69-CE56-43C0-BA0F-A4BBCC1DB8A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.Api", "src\Gateway\Gateway.Api\Gateway.Api.csproj", "{5D5F5DB2-0DBB-42DC-A255-50E49E7C8A49}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8A667FEC-FA63-4EB7-A152-3D19786ADC2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reservation.Specs", "tests\ReservationTest\Reservation.Specs\Reservation.Specs.csproj", "{1C7938E1-521E-4194-B9FD-E1D089A6F9E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +105,14 @@ Global
 		{5D5F5DB2-0DBB-42DC-A255-50E49E7C8A49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D5F5DB2-0DBB-42DC-A255-50E49E7C8A49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D5F5DB2-0DBB-42DC-A255-50E49E7C8A49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A667FEC-FA63-4EB7-A152-3D19786ADC2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A667FEC-FA63-4EB7-A152-3D19786ADC2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A667FEC-FA63-4EB7-A152-3D19786ADC2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A667FEC-FA63-4EB7-A152-3D19786ADC2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C7938E1-521E-4194-B9FD-E1D089A6F9E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7938E1-521E-4194-B9FD-E1D089A6F9E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C7938E1-521E-4194-B9FD-E1D089A6F9E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7938E1-521E-4194-B9FD-E1D089A6F9E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,6 +136,7 @@ Global
 		{3F3028BF-3066-472D-965E-B2F8998408C2} = {9C886FF0-E0F0-4487-96A1-3E0E844180F0}
 		{97F02C69-CE56-43C0-BA0F-A4BBCC1DB8A7} = {75325879-3612-41DF-AD1D-90092A93D951}
 		{5D5F5DB2-0DBB-42DC-A255-50E49E7C8A49} = {97F02C69-CE56-43C0-BA0F-A4BBCC1DB8A7}
+		{1C7938E1-521E-4194-B9FD-E1D089A6F9E9} = {1485BEF7-6EA6-4AC2-B911-E8A49BF76D8C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83E338ED-1572-4E6C-9AB2-563969680E70}

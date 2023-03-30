@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest 
+    
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: .
+      dockerfile: src/Gateway/Gateway.Api/Dockerfile
+    depends_on:
+            - identity.api
+            - reservation.api
+  
+  identity.api:
+    image: ${DOCKER_REGISTRY-}identityapi
+    build:
+      context: .
+      dockerfile: src/Identity/Identity.Api/Dockerfile
+    depends_on:
+      - sqldata
+
+  reservation.api:
+    image: ${DOCKER_REGISTRY-}reservationapi
+    build:
+      context: .
+      dockerfile: src/Reservation/Reservation.Api/Dockerfile
+    depends_on:
+      - sqldata

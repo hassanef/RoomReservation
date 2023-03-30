@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using Reservation.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +25,10 @@ namespace Ticket.Application.Behaviors
 
             if (failures.Any())
             {
-               // throw new OrderingDomainException(
-                 //   $"Command Validation Errors for type {typeof(TRequest).Name}", new ValidationException("Validation exception", failures));
-                throw new Exception(
-                   $"Command Validation Errors for type {typeof(TRequest).Name}", new ValidationException("Validation exception", failures));
+                throw new ValidationException(failures);
+
+                //throw new ReservationException(
+                //   $"Command Validation Errors for type {typeof(TRequest).Name}", new ValidationException("Validation exception", failures));
             }
 
             var response = await next();
