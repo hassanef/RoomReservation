@@ -7,8 +7,5 @@ namespace Reservation.Domain.IRepositories
         Task<int> SaveChangesAsync();
 
         void SaveChanges();
-        Task BeginTran();
-        Task CommitTran();
-        Task RollBack();
     }
 }

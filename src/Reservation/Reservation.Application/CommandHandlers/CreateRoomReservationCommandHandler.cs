@@ -20,19 +20,16 @@ namespace Reservation.Application.CommandHandlers
         private readonly ILocationRepository _locationRepository;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IClock _clock;
-        private readonly ReservationDbContext _reservationDbContext;
 
         public CreateRoomReservationCommandHandler(IRoomReservationRepository repository,
                                                     ILocationRepository locationRepository,
                                                     IHttpContextAccessor contextAccessor,
-                                                    IClock clock,
-                                                    ReservationDbContext reservationDbContext)
+                                                    IClock clock)
         {
             _repository = repository;
             _contextAccessor = contextAccessor;
             _locationRepository = locationRepository;
             _clock = clock;
-            _reservationDbContext = reservationDbContext;
         }
 
         public async Task<bool> Handle(CreateRoomReservationCommand request, CancellationToken cancellationToken)
@@ -54,4 +51,5 @@ namespace Reservation.Application.CommandHandlers
             return true;
         }
     }
+
 }

@@ -15,7 +15,7 @@ namespace Reservation.Domain.UnitTests.RoomReservationTests
             _clock.TimeTravelTo(DateTime.Parse("2020-01-05 10:30:00"));
         }
         [Fact]
-        public void Created_Reservation_In_Valid_Time_Is_Not_Null()
+        public void Create_Reservation_In_Valid_DateTime()
         {
             var startDate = "2020-01-06 10:30:00";
             var endDate = "2020-01-06 11:30:00";

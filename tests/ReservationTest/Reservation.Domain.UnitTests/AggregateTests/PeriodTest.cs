@@ -17,7 +17,7 @@ namespace Reservation.Domain.UnitTests.AggregateTests
         }
       
         [Fact]
-        public void Reserved_Speciefic_Room_In_Free_Datetime()
+        public void Reserve_Speciefic_DateTime_For_Room_In_Free_Datetime()
         {
             var startDate = "2020-01-06 10:30:00";
             var endDate = "2020-01-06 11:30:00";
@@ -27,7 +27,7 @@ namespace Reservation.Domain.UnitTests.AggregateTests
             period.Should().NotBeNull();
         }
         [Fact]
-        public void Raised_An_Exception_When_StartDate_Is_Before_Now()
+        public void Can_Not_Reserve_Speciefic_DateTime_For_Room_When_StartDate_Is_Before_Now()
         {
             var startDate = "2020-01-05 08:30:00";
             var endDate = "2020-01-05 09:30:00";
@@ -38,7 +38,7 @@ namespace Reservation.Domain.UnitTests.AggregateTests
              .WithMessage("startDate couldnt be in the past!");
         }
         [Fact]
-        public void Reserved_Room_Before_Started_To_Open_Office_Raised_An_Exception()
+        public void Can_Not_Reserve_Speciefic_DateTime_For_Room_Before_Start_To_Open_Office()
         {
             var startDate = "2020-01-06 07:59:00";
             var endDate = "2020-01-06 09:00:00";
@@ -49,7 +49,7 @@ namespace Reservation.Domain.UnitTests.AggregateTests
                 .WithMessage("startDate must be after Open Office time!");
         }
         [Fact]
-        public void Can_Not_Reserved_Room_After_Closed_Office_Time_In_Amsterdam()
+        public void Can_Not_Reserve_Speciefic_DateTime_For_Room_After_Close_Office_Time_In_Amsterdam()
         {
             var startDate = "2020-01-06 16:00:00";
             var endDate = "2020-01-06 17:05:00";
@@ -62,7 +62,7 @@ namespace Reservation.Domain.UnitTests.AggregateTests
               .WithMessage("endDate must be before close Office time!");
         }
         [Fact]
-        public void Can_Not_Reserved_Room_After_Closed_Office_Time_In_Berlin()
+        public void Can_Not_Reserved_Speciefic_DateTime_For_Room_After_Close_Office_Time_In_Berlin()
         {
             var startDate = "2020-01-06 18:00:00";
             var endDate = "2020-01-06 20:01:00";
