@@ -47,6 +47,24 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reservation.Specs", "tests\ReservationTest\Reservation.Specs\Reservation.Specs.csproj", "{1C7938E1-521E-4194-B9FD-E1D089A6F9E9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "spdd", "spdd", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{791DF060-CB2D-4B8A-893B-BD8A13623ACA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "features", "features", "{AF5658D1-3F90-4FAF-81C5-8163E89CDAE5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "spdd", "spdd", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{791DF060-CB2D-4B8A-893B-BD8A13623ACA}"
+	ProjectSection(SolutionItems) = preProject
+		reasons-template.md = reasons-template.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "features", "features", "{AF5658D1-3F90-4FAF-81C5-8163E89CDAE5}"
+	ProjectSection(SolutionItems) = preProject
+		migrate-to-dotnet10.md = migrate-to-dotnet10.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +155,8 @@ Global
 		{97F02C69-CE56-43C0-BA0F-A4BBCC1DB8A7} = {75325879-3612-41DF-AD1D-90092A93D951}
 		{5D5F5DB2-0DBB-42DC-A255-50E49E7C8A49} = {97F02C69-CE56-43C0-BA0F-A4BBCC1DB8A7}
 		{1C7938E1-521E-4194-B9FD-E1D089A6F9E9} = {1485BEF7-6EA6-4AC2-B911-E8A49BF76D8C}
+		{791DF060-CB2D-4B8A-893B-BD8A13623ACA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{AF5658D1-3F90-4FAF-81C5-8163E89CDAE5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83E338ED-1572-4E6C-9AB2-563969680E70}
