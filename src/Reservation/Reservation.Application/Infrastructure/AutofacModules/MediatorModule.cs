@@ -1,4 +1,4 @@
-﻿using Autofac;
+using Autofac;
 using FluentValidation;
 using MediatR;
 using Reservation.Application.Commands;
@@ -14,12 +14,6 @@ namespace Ticket.Application.Infrastructure.AutofacModules
         {
             builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly)
                 .AsImplementedInterfaces();
-
-            builder.Register<ServiceFactory>(ctx =>
-            {
-                var c = ctx.Resolve<IComponentContext>();
-                return t => c.Resolve(t);
-            });
 
             // Register all the Command classes (they implement IRequestHandler) in assembly holding the Commands
             builder.RegisterAssemblyTypes(typeof(CreateRoomReservationCommand).GetTypeInfo().Assembly)

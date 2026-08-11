@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using MediatR;
 using Reservation.Domain.Exceptions;
 using System;
@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace Ticket.Application.Behaviors
 {
-    public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
     {
         private readonly IValidator<TRequest>[] _validators;
         public ValidatorBehavior(IValidator<TRequest>[] validators) => _validators = validators;
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             var failures = _validators
                 .Select(v => v.Validate(request))

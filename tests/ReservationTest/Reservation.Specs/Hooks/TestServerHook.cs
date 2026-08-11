@@ -1,9 +1,9 @@
-﻿using BoDi;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Reqnroll.BoDi;
 using Reservation.Api;
 using Reservation.Infrastructure.Context;
 using Reservation.Specs.Utils;

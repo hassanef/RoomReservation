@@ -1,28 +1,23 @@
-﻿using SpecFlow.Internal.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http.Json;
 
 namespace Reservation.Specs.Utils
 {
     public class WebContext : ISystemUnderTest
     {
         public HttpClient Client { get; set; }
-        
+
 
         public async Task PostAsync<T>(string route, T entity)
         {
             Client.DefaultRequestHeaders.Add("userId", "1");
-            Response = await Client.PostAsync(route, new StringContent(entity.ToJson(), Encoding.UTF8, "application/json"));
+            Response = await Client.PostAsync(route, JsonContent.Create(entity));
         }
 
         public HttpResponseMessage Response { get; private set; }
 
         public async Task PutAsync<T>(string route, T entity)
         {
-            Response = await Client.PutAsync(route, new StringContent(entity.ToJson(), Encoding.UTF8, "application/json"));
+            Response = await Client.PutAsync(route, JsonContent.Create(entity));
         }
 
         public async Task GetAsync(string route)
